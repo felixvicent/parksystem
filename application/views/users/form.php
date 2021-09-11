@@ -41,30 +41,36 @@
                   <div class="col-md-4">
                     <label>Nome</label>
                     <input type="text" class="form-control" placeholder="Nome" name="first_name" value="<?php echo (isset($user) ? $user->first_name : set_value('first_name')) ?>">
+                    <?php echo form_error('first_name', '<div class="text-danger">', '</div>') ?>
                   </div>
                   <div class="col-md-4">
                     <label>Sobrenome</label>
                     <input type="text" class="form-control" placeholder="Sobrenome" name="last_name" value="<?php echo (isset($user) ? $user->last_name : set_value('last_name')) ?>">
+                    <?php echo form_error('last_name', '<div class="text-danger">', '</div>') ?>
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-md-4">
                     <label>Usuário</label>
                     <input type="text" class="form-control" placeholder="Usuário" name="username" value="<?php echo (isset($user) ? $user->username : set_value('username')) ?>">
+                    <?php echo form_error('username', '<div class="text-danger">', '</div>') ?>
                   </div>
                   <div class="col-md-4">
                     <label>Email (Login)</label>
                     <input type="email" class="form-control" placeholder="Email" name="email" value="<?php echo (isset($user) ? $user->email : set_value('email')) ?>">
+                    <?php echo form_error('email', '<div class="text-danger">', '</div>') ?>
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-md-4">
                     <label>Senha</label>
                     <input type="password" class="form-control" placeholder="Senha" name="password" value="">
+                    <?php echo form_error('password', '<div class="text-danger">', '</div>') ?>
                   </div>
                   <div class="col-md-4">
                     <label>Confirma senha</label>
                     <input type="password" class="form-control" placeholder="Confirma senha" name="confirm_password" value="">
+                    <?php echo form_error('confirm_password', '<div class="text-danger">', '</div>') ?>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -84,8 +90,8 @@
                   </div>
                 </div>
                 <div class="col-md-12">
-                    <input type="hidden" name="user_id" value="<?php echo isset($user) ? $user->id : 0 ?>">
-                  </div>
+                  <input type="hidden" name="user_id" value="<?php echo isset($user) ? $user->id : 0 ?>">
+                </div>
                 <button type="submit" class="btn btn-primary mr-2">Enviar</button>
                 <button class="btn btn-light">Cancelar</button>
               </form>

@@ -34,6 +34,29 @@ class Users extends CI_Controller {
       if(!$this->ion_auth->user($id)->row()){
         exit('User not exists');
       } else {
+        $this->form_validation->set_rules('first_name', 'Nome', 'trim|required|min_length[5]|max_length[20]');
+        $this->form_validation->set_rules('last_name', 'Sobrenome', 'trim|required|min_length[5]|max_length[20]');
+        $this->form_validation->set_rules('username', 'Usuário', 'trim|required|min_length[3]|max_length[20]');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $this->form_validation->set_rules('password', 'Senha', 'trim|min_length[8]');
+        $this->form_validation->set_rules('confirm_password', 'Confirma senha', 'trim|matches[password]');
+
+        if($this->form_validation->run()){
+          echo '<pre>';
+          print_r($this->input->post());
+          exit();
+        } else {
+          $data = array(
+            "title" => "Editar Usuário",
+            "user" => $this->ion_auth->user($id)->row(),
+            "user_profile" => $this->ion_auth->get_users_groups($id)->row()
+          );
+      
+          $this->load->view('layout/header', $data);
+          $this->load->view('users/form');
+          $this->load->view('layout/footer');
+        }
+
         $data = array(
           "title" => "Editar Usuário",
           "user" => $this->ion_auth->user($id)->row(),
