@@ -41,6 +41,7 @@
                     <th>Usuário</th>
                     <th>E-mail</th>
                     <th>Nome</th>
+                    <th>Perfil de acesso</th>
                     <th>Ativo</th>
                     <th class="nosort text-right pr-25">Ações</th>
                   </tr>
@@ -52,10 +53,11 @@
                       <td><?php echo $user->username; ?></td>
                       <td><?php echo $user->email; ?></td>
                       <td><?php echo $user->first_name; ?></td>
+                      <td><?php echo ($this->ion_auth->is_admin($user->id) ? 'Administrador' : 'Atendente'); ?></td>
                       <td><?php echo ($user->active == 1 ? '<span class="badge badge-pill badge-success">Sim</span>' : '<span class="badge badge-pill badge-warning">Não</span>'); ?></td>
                       <td class="text-right">
-                        <a href="" class="btn btn-icon btn-primary"><i class="ik ik-edit-2"></i></a>
-                        <a href="" class="btn btn-icon btn-danger"><i class="ik ik-trash-2"></i></a>
+                        <a data-toggle="tooltip" data-placement="bottom" title="Editar usuários" href="" class="btn btn-icon btn-primary"><i class="ik ik-edit-2"></i></a>
+                        <a data-toggle="tooltip" data-placement="bottom" title="Excluir usuários" href="" class="btn btn-icon btn-danger"><i class="ik ik-trash-2"></i></a>
                       </td>
                     </tr>
                   <?php endforeach; ?>
