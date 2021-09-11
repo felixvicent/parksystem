@@ -26,7 +26,7 @@ class Users extends CI_Controller {
       $data = array(
         "title" => "Cadastrar Usuário",
       );
-      
+
       $this->load->view('layout/header', $data);
       $this->load->view('users/form');
       $this->load->view('layout/footer');
@@ -37,6 +37,7 @@ class Users extends CI_Controller {
         $data = array(
           "title" => "Editar Usuário",
           "user" => $this->ion_auth->user($id)->row(),
+          "user_profile" => $this->ion_auth->get_users_groups($id)->row()
         );
     
         $this->load->view('layout/header', $data);

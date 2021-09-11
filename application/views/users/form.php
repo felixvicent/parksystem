@@ -71,8 +71,8 @@
                   <div class="col-md-4">
                     <label>Perfil de acesso</label>
                     <select name="profile" class="form-control">
-                      <option value="2">Atendente</option>
-                      <option value="1">Administrador</option>
+                      <option <?php echo isset($user_profile) && $user_profile->id == 2 ? 'selected' : ''; ?> value="2">Atendente</option>
+                      <option <?php echo isset($user_profile) && $user_profile->id == 1 ? 'selected' : ''; ?> value="1">Administrador</option>
                     </select>
                   </div>
                   <div class="col-md-4">
@@ -83,14 +83,11 @@
                     </select>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input">
-                    <span class="custom-control-label">&nbsp;Remember me</span>
-                  </label>
-                </div>
-                <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <button class="btn btn-light">Cancel</button>
+                <div class="col-md-12">
+                    <input type="hidden" name="user_id" value="<?php echo isset($user) ? $user->id : 0 ?>">
+                  </div>
+                <button type="submit" class="btn btn-primary mr-2">Enviar</button>
+                <button class="btn btn-light">Cancelar</button>
               </form>
             </div>
           </div>
