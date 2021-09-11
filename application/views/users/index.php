@@ -11,7 +11,6 @@
               <i class="ik ik-users bg-blue"></i>
               <div class="d-inline">
                 <h5><?php echo $title ?></h5>
-                <span><?php echo $subtitle ?></span>
               </div>
             </div>
           </div>
@@ -31,7 +30,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <a href="" class="btn btn-success">Novo</a>
+              <a href="<?php echo base_url('users/form') ?>" class="btn btn-success">Novo</a>
             </div>
             <div class="card-body">
               <table class="table data_table">
@@ -56,7 +55,7 @@
                       <td><?php echo ($this->ion_auth->is_admin($user->id) ? 'Administrador' : 'Atendente'); ?></td>
                       <td><?php echo ($user->active == 1 ? '<span class="badge badge-pill badge-success">Sim</span>' : '<span class="badge badge-pill badge-warning">Não</span>'); ?></td>
                       <td class="text-right">
-                        <a data-toggle="tooltip" data-placement="bottom" title="Editar usuários" href="" class="btn btn-icon btn-primary"><i class="ik ik-edit-2"></i></a>
+                        <a data-toggle="tooltip" data-placement="bottom" title="Editar usuários" href="<?php echo base_url('users/form/'.$user->id) ?>" class="btn btn-icon btn-primary"><i class="ik ik-edit-2"></i></a>
                         <a data-toggle="tooltip" data-placement="bottom" title="Excluir usuários" href="" class="btn btn-icon btn-danger"><i class="ik ik-trash-2"></i></a>
                       </td>
                     </tr>
