@@ -26,8 +26,13 @@
   <link rel="stylesheet" href="<?php echo base_url('public/plugins/c3/c3.min.css') ?>">
   <link rel="stylesheet" href="<?php echo base_url('public/plugins/owl.carousel/dist/assets/owl.carousel.min.css') ?>">
   <link rel="stylesheet" href="<?php echo base_url('public/plugins/owl.carousel/dist/assets/owl.theme.default.min.css') ?>"> -->
-  
   <link rel="stylesheet" href="<?php echo base_url('public/dist/css/theme.min.css') ?>">
+
+  <?php if(isset($styles)):
+    foreach($styles as $style): ?>
+      <link rel="stylesheet" href="<?php echo base_url('public/'.$style) ?>">
+    <?php endforeach;
+  endif ?>
 </head>
 
 <body>
