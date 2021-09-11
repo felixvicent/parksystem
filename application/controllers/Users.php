@@ -23,7 +23,13 @@ class Users extends CI_Controller {
 
   public function form($id = null){
     if(!$id){
-      exit('Cadastrar usuário');
+      $data = array(
+        "title" => "Cadastrar Usuário",
+      );
+      
+      $this->load->view('layout/header', $data);
+      $this->load->view('users/form');
+      $this->load->view('layout/footer');
     } else {
       if(!$this->ion_auth->user($id)->row()){
         exit('User not exists');
