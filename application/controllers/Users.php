@@ -127,6 +127,27 @@ class Users extends CI_Controller
     }
   }
 
+  public function delete($id = null)
+  {
+    if (!$id || !$this->general->get_by_id('users', array('id' => $id))) {
+      $this->session->set_flashdata('error', 'Usuário não encontrado');
+      redirect('users');
+    } else {
+      if ($this->ion_auth->is_admin($id)) {
+        $this->session->set_flashdata('error', 'Administrador não pode ser excluido');
+        redirect('users');
+      }
+
+      if ($this->ion_auth->delete_user($id)) {
+        $this->session->set_flashdata('sucesso', 'Usuário excluido com sucesso');
+      } else {
+        $this->session->set_flashdata('error', 'usuário não pode ser excluido');
+      }
+
+      redirect('users');
+    }
+  }
+
   public function username_check($username)
   {
     $id = $this->input->post('user_id');

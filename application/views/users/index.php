@@ -41,6 +41,20 @@
         </div>
       <?php endif; ?>
 
+      <?php if ($message = $this->session->flashdata('error')) : ?>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="alert alert-danger bg-danger alert-dismissible text-white fade show" role="alert">
+              <i class="ik ik-alert-circle"></i>&nbsp;
+              <strong><?php echo $message ?></strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="ik ik-x"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      <?php endif; ?>
+
       <div class="row">
         <div class="col-md-12">
           <div class="card">
@@ -68,12 +82,29 @@
                       <td><?php echo $user->email; ?></td>
                       <td><?php echo $user->first_name; ?></td>
                       <td><?php echo ($this->ion_auth->is_admin($user->id) ? 'Administrador' : 'Atendente'); ?></td>
-                      <td><?php echo ($user->active == 1 ? '<span class="badge badge-pill badge-success">Sim</span>' : '<span class="badge badge-pill badge-warning">Não</span>'); ?></td>
+                      <td><?php echo ($user->active == 1 ? '<span class="badge badge-pill badge-success"><i class="ik ik-unlock"></i>&nbsp;Sim</span>' : '<span class="badge badge-pill badge-warning"><i class="ik ik-lock"></i>&nbsp;Não</span>'); ?></td>
                       <td class="text-right">
                         <a data-toggle="tooltip" data-placement="bottom" title="Editar usuários" href="<?php echo base_url('users/form/' . $user->id) ?>" class="btn btn-icon btn-primary"><i class="ik ik-edit-2"></i></a>
-                        <a data-toggle="tooltip" data-placement="bottom" title="Excluir usuários" href="" class="btn btn-icon btn-danger"><i class="ik ik-trash-2"></i></a>
+                        <button type="button" data-toggle="modal" data-target="#user-<?php echo $user->id; ?>" class="btn btn-icon btn-danger"><i class="ik ik-trash-2"></i></a>
                       </td>
                     </tr>
+                    <div class="modal fade" id="user-<?php echo $user->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterLabel"><i class="ik ik-alert-circle"></i>&nbsp; Tem certeza da exclusão do registro?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Deseja realmente excluir o usuário <?php echo $user->username ?></p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não, voltar</button>
+                            <a href="<?php echo base_url('users/delete/' . $user->id); ?>" class="btn btn-danger">Sim, excluir</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   <?php endforeach; ?>
                 </tbody>
               </table>
