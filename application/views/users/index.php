@@ -26,6 +26,21 @@
           </div>
         </div>
       </div>
+
+      <?php if ($message = $this->session->flashdata('sucesso')) : ?>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="alert alert-success bg-success alert-dismissible text-white fade show" role="alert">
+              <i class="ik ik-check-circle"></i>&nbsp;
+              <strong><?php echo $message ?></strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="ik ik-x"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      <?php endif; ?>
+
       <div class="row">
         <div class="col-md-12">
           <div class="card">
@@ -46,7 +61,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach($users as $user): ?>
+                  <?php foreach ($users as $user) : ?>
                     <tr>
                       <td><?php echo $user->id; ?></td>
                       <td><?php echo $user->username; ?></td>
@@ -55,7 +70,7 @@
                       <td><?php echo ($this->ion_auth->is_admin($user->id) ? 'Administrador' : 'Atendente'); ?></td>
                       <td><?php echo ($user->active == 1 ? '<span class="badge badge-pill badge-success">Sim</span>' : '<span class="badge badge-pill badge-warning">Não</span>'); ?></td>
                       <td class="text-right">
-                        <a data-toggle="tooltip" data-placement="bottom" title="Editar usuários" href="<?php echo base_url('users/form/'.$user->id) ?>" class="btn btn-icon btn-primary"><i class="ik ik-edit-2"></i></a>
+                        <a data-toggle="tooltip" data-placement="bottom" title="Editar usuários" href="<?php echo base_url('users/form/' . $user->id) ?>" class="btn btn-icon btn-primary"><i class="ik ik-edit-2"></i></a>
                         <a data-toggle="tooltip" data-placement="bottom" title="Excluir usuários" href="" class="btn btn-icon btn-danger"><i class="ik ik-trash-2"></i></a>
                       </td>
                     </tr>

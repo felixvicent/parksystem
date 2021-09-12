@@ -42,9 +42,30 @@ class Users extends CI_Controller {
         $this->form_validation->set_rules('confirm_password', 'Confirma senha', 'trim|matches[password]');
 
         if($this->form_validation->run()){
-          echo '<pre>';
-          print_r($this->input->post());
-          exit();
+          $data = elements(array(
+            'first_name',
+            'last_name',
+            'username',
+            'email',
+            'password',
+            'active'
+          ), $this->input->post());
+          
+          $password = $this->input->post('password');
+
+          if(!$password){
+            unset($data['password']);
+          }
+
+          $data = html_escape($data);
+
+          if($this->ion_auth->update($id, $data)){
+            $this->session->set_flashdata('sucesso', 'Dados atualizados com sucesso');
+          } else {
+            $this->session->set_flashdata('error', 'Não foi possivel atualizar os dados');
+          }
+
+          redirect('users');
         } else {
           $data = array(
             "title" => "Editar Usuário",
@@ -56,16 +77,6 @@ class Users extends CI_Controller {
           $this->load->view('users/form');
           $this->load->view('layout/footer');
         }
-
-        $data = array(
-          "title" => "Editar Usuário",
-          "user" => $this->ion_auth->user($id)->row(),
-          "user_profile" => $this->ion_auth->get_users_groups($id)->row()
-        );
-    
-        $this->load->view('layout/header', $data);
-        $this->load->view('users/form');
-        $this->load->view('layout/footer');
       }
     }
   }
