@@ -30,6 +30,40 @@ class Users extends CI_Controller
         "title" => "Cadastrar Usuário",
       );
 
+      $this->form_validation->set_rules('first_name', 'Nome', 'trim|required|min_length[5]|max_length[20]');
+      $this->form_validation->set_rules('last_name', 'Sobrenome', 'trim|required|min_length[5]|max_length[20]');
+      $this->form_validation->set_rules('username', 'Usuário', 'trim|required|min_length[3]|max_length[20]|is_unique[users.username]');
+      $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
+      $this->form_validation->set_rules('password', 'Senha', 'trim|required|min_length[8]');
+      $this->form_validation->set_rules('confirm_password', 'Confirma senha', 'trim|required|matches[password]');
+
+      if ($this->form_validation->run()) {
+
+        $username = html_escape($this->input->post('username'));
+        $password = html_escape($this->input->post('password'));
+        $email = html_escape($this->input->post('email'));
+        $data_additional = array(
+          'first_name' => $this->input->post('first_name'),
+          'last_name' => $this->input->post('last_name'),
+          'active' => $this->input->post('active'),
+        );
+        $group = array($this->input->post('profile'));
+
+        $data_additional = html_escape($data_additional);
+
+        if ($this->ion_auth->register($username, $password, $email, $data_additional, $group)) {
+          $this->session->set_flashdata('sucesso', 'Usuário cadastrado com sucesso');
+        } else {
+          $this->session->set_flashdata('error', 'Não foi possivel cadastrar usuário');
+        }
+
+        redirect('users');
+      } else {
+        $this->load->view('layout/header', $data);
+        $this->load->view('users/form');
+        $this->load->view('layout/footer');
+      }
+
       $this->load->view('layout/header', $data);
       $this->load->view('users/form');
       $this->load->view('layout/footer');
