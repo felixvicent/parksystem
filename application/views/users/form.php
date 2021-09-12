@@ -33,7 +33,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <?php echo isset($user) ? '<i class="ik ik-calendar ik-2x"></i>&nbsp; Última atualização: '. formata_data_banco_com_hora($user->updated_on) : '' ?>
+              <?php echo isset($user) ? '<i class="ik ik-calendar ik-2x"></i>&nbsp; Última atualização: ' . formata_data_banco_com_hora($user->updated_on) : '' ?>
             </div>
             <div class="card-body">
               <form class="forms-sample" name="form_user" method="POST">
@@ -82,7 +82,7 @@
                     </select>
                   </div>
                   <div class="col-md-4">
-                  <label>Ativo</label>
+                    <label>Ativo</label>
                     <select name="active" class="form-control">
                       <option <?php echo isset($user->active) && $user->active == 1 ? 'selected' : '' ?> value="1">Sim</option>
                       <option <?php echo isset($user->active) && $user->active == 0 ? 'selected' : '' ?> value="0">Não</option>
@@ -93,7 +93,7 @@
                   <input type="hidden" name="user_id" value="<?php echo isset($user) ? $user->id : 0 ?>">
                 </div>
                 <button type="submit" class="btn btn-primary mr-2">Enviar</button>
-                <button class="btn btn-light">Cancelar</button>
+                <a href="<?php echo base_url('users'); ?>" class="btn btn-secondary">Cancelar</a>
               </form>
             </div>
           </div>
