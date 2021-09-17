@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 12/09/2021 às 15:07
+-- Tempo de geração: 17/09/2021 às 09:09
 -- Versão do servidor: 10.1.32-MariaDB
 -- Versão do PHP: 7.0.30
 
@@ -55,6 +55,47 @@ CREATE TABLE `login_attempts` (
   `time` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Fazendo dump de dados para tabela `login_attempts`
+--
+
+INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
+(1, '::1', 'agenciaellis@gmail.com', 1631879076),
+(2, '::1', 'sara@evl.com.br', 1631879099),
+(3, '::1', 'sara@evl.com.br', 1631879190);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `sistema`
+--
+
+CREATE TABLE `sistema` (
+  `id` int(11) NOT NULL,
+  `razao_social` varchar(145) DEFAULT NULL,
+  `nome_fantasia` varchar(145) DEFAULT NULL,
+  `cnpj` varchar(25) DEFAULT NULL,
+  `ie` varchar(25) DEFAULT NULL,
+  `telefone_fixo` varchar(25) DEFAULT NULL,
+  `telefone_movel` varchar(25) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `site_url` varchar(100) DEFAULT NULL,
+  `cep` varchar(25) DEFAULT NULL,
+  `endereco` varchar(145) DEFAULT NULL,
+  `numero` varchar(25) DEFAULT NULL,
+  `cidade` varchar(45) DEFAULT NULL,
+  `estado` varchar(2) DEFAULT NULL,
+  `txt_ordem_servico` tinytext,
+  `data_alteracao` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Fazendo dump de dados para tabela `sistema`
+--
+
+INSERT INTO `sistema` (`id`, `razao_social`, `nome_fantasia`, `cnpj`, `ie`, `telefone_fixo`, `telefone_movel`, `email`, `site_url`, `cep`, `endereco`, `numero`, `cidade`, `estado`, `txt_ordem_servico`, `data_alteracao`) VALUES
+(1, 'Park Now System', 'Park Now', '80.838.809/0001-26', '683.90228-49', '(41) 3232-3030', '(41) 9999-9999', 'parknow@contato.com.br', 'http://parknow.com.br', '58140000', 'Rua Pedro Grangeiro', '664', 'Paraíba', 'PB', 'Park Now - Seu veículo em boas mãos.', '2021-09-17 12:08:55');
+
 -- --------------------------------------------------------
 
 --
@@ -89,8 +130,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `updated_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, '2021-09-12 16:55:21', 1268889823, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(6, '::1', 'felps', '$2y$10$AdHsphT0bEo2EqXvkGPfDuBI.1nCjxz7w3i9AvkwoLbY01SROptiK', 'felixvicent1306@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1631469970, '2021-09-12 18:06:10', NULL, 1, 'Félix', 'Vicente', NULL, NULL);
+(1, '127.0.0.1', 'administrator', '$2y$12$xwTCZ2nDPZXfq0p48T9lFOUVnxSCYDteFO3tGLAax21igCwYLXFDm', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, '2021-09-17 11:49:30', 1631879370, 1, 'Admin', 'istrator', 'ADMIN', '0'),
+(8, '::1', 'felps', '$2y$10$Ul2Ib4sxSFH6wVgCEQC2N.kMF84eFKXc0YpsiF41urONtD3SUpk7y', 'felixvicent1306@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1631471999, '2021-09-17 12:04:37', 1631880277, 1, 'Félix', 'Vicente', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -109,8 +150,8 @@ CREATE TABLE `users_groups` (
 --
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
-(16, 1, 2),
-(22, 6, 2);
+(25, 1, 1),
+(26, 8, 2);
 
 --
 -- Índices de tabelas apagadas
@@ -126,6 +167,12 @@ ALTER TABLE `groups`
 -- Índices de tabela `login_attempts`
 --
 ALTER TABLE `login_attempts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `sistema`
+--
+ALTER TABLE `sistema`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -161,19 +208,25 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT de tabela `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `sistema`
+--
+ALTER TABLE `sistema`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Restrições para dumps de tabelas
