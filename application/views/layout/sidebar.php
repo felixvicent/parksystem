@@ -35,7 +35,7 @@
           <a href="<?php echo base_url('users') ?>"><i class="ik ik-users"></i><span>Usuários</span></a>
         </div>
         <div class="nav-item">
-          <a href="<?php echo base_url('sistema') ?>"><i class="ik ik-settings"></i><span>Sistema</span></a>
+          <a href="<?php echo base_url('systema') ?>"><i class="ik ik-settings"></i><span>Sistema</span></a>
         </div>
       </nav>
     </div>

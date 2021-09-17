@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('Ação não permitida');
 
-class Sistema extends CI_Controller
+class Systema extends CI_Controller
 {
   public function __construct()
   {
@@ -16,11 +16,15 @@ class Sistema extends CI_Controller
   {
     $data = array(
       "title" => "Sistema",
-      "sistema" => $this->general->get_by_id('sistema', array('id' => 1))
+      "system" => $this->general->get_by_id('system', array('id' => 1)),
+      "scripts" => array(
+        "plugins/mask/jquery.mask.min.js",
+        "plugins/mask/custom.js",
+      ),
     );
 
     $this->load->view('layout/header', $data);
-    $this->load->view('sistema/index');
+    $this->load->view('system/index', $data);
     $this->load->view('layout/footer');
   }
 }

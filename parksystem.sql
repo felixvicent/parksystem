@@ -58,19 +58,13 @@ CREATE TABLE `login_attempts` (
 --
 -- Fazendo dump de dados para tabela `login_attempts`
 --
-
-INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
-(1, '::1', 'agenciaellis@gmail.com', 1631879076),
-(2, '::1', 'sara@evl.com.br', 1631879099),
-(3, '::1', 'sara@evl.com.br', 1631879190);
-
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `sistema`
+-- Estrutura para tabela `system`
 --
 
-CREATE TABLE `sistema` (
+CREATE TABLE `system` (
   `id` int(11) NOT NULL,
   `razao_social` varchar(145) DEFAULT NULL,
   `nome_fantasia` varchar(145) DEFAULT NULL,
@@ -85,15 +79,15 @@ CREATE TABLE `sistema` (
   `numero` varchar(25) DEFAULT NULL,
   `cidade` varchar(45) DEFAULT NULL,
   `estado` varchar(2) DEFAULT NULL,
-  `txt_ordem_servico` tinytext,
+  `txt_ticket` tinytext,
   `data_alteracao` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Fazendo dump de dados para tabela `sistema`
+-- Fazendo dump de dados para tabela `system`
 --
 
-INSERT INTO `sistema` (`id`, `razao_social`, `nome_fantasia`, `cnpj`, `ie`, `telefone_fixo`, `telefone_movel`, `email`, `site_url`, `cep`, `endereco`, `numero`, `cidade`, `estado`, `txt_ordem_servico`, `data_alteracao`) VALUES
+INSERT INTO `system` (`id`, `razao_social`, `nome_fantasia`, `cnpj`, `ie`, `telefone_fixo`, `telefone_movel`, `email`, `site_url`, `cep`, `endereco`, `numero`, `cidade`, `estado`, `txt_ticket`, `data_alteracao`) VALUES
 (1, 'Park Now System', 'Park Now', '80.838.809/0001-26', '683.90228-49', '(41) 3232-3030', '(41) 9999-9999', 'parknow@contato.com.br', 'http://parknow.com.br', '58140000', 'Rua Pedro Grangeiro', '664', 'Paraíba', 'PB', 'Park Now - Seu veículo em boas mãos.', '2021-09-17 12:08:55');
 
 -- --------------------------------------------------------
@@ -170,9 +164,9 @@ ALTER TABLE `login_attempts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `sistema`
+-- Índices de tabela `system`
 --
-ALTER TABLE `sistema`
+ALTER TABLE `system`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -211,9 +205,9 @@ ALTER TABLE `login_attempts`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de tabela `sistema`
+-- AUTO_INCREMENT de tabela `system`
 --
-ALTER TABLE `sistema`
+ALTER TABLE `system`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
