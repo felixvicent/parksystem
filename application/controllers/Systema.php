@@ -31,9 +31,32 @@ class Systema extends CI_Controller
     $this->form_validation->set_rules('txt_ticket', 'Texto do ticket', 'trim|max_length[500]');
 
     if ($this->form_validation->run()) {
-      echo '<pre>';
-      print_r($this->input->post());
-      exit();
+      $data = elements(
+        array(
+          'razao_social',
+          'nome_fantasia',
+          'cnpj',
+          'ie',
+          'telefone_fixo',
+          'telefone_movel',
+          'cep',
+          'endereco',
+          'numero',
+          'cidade',
+          'estado',
+          'site_url',
+          'email',
+          'txt_ticket',
+        ),
+        $this->input->post()
+      );
+
+      $data = html_escape($data);
+
+      $this->general->update('system', array('id' => 1), $data);
+
+      $this->session->set_flashdata('sucesso', 'Dados atualizados com sucesso');
+      redirect($this->router->fetch_class());
     } else {
       $data = array(
         "title" => "Sistema",

@@ -26,6 +26,19 @@
           </div>
         </div>
       </div>
+      <?php if ($message = $this->session->flashdata('sucesso')) : ?>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="alert alert-success bg-success alert-dismissible text-white fade show" role="alert">
+              <i class="ik ik-alert-circle"></i>&nbsp;
+              <strong><?php echo $message ?></strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="ik ik-x"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      <?php endif; ?>
       <div class="row">
         <div class="col-md-12">
           <div class="card">
