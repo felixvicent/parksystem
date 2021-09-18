@@ -59,7 +59,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header d-block">
-              <a data-toggle="tooltip" data-placement="bottom" title="Cadastrar usuário" href="<?php echo base_url('users/form') ?>" class="btn bg-blue float-right text-white">Novo</a>
+              <a data-toggle="tooltip" data-placement="bottom" title="Cadastrar usuário" href="<?php echo base_url('pricings/form') ?>" class="btn bg-blue float-right text-white">Novo</a>
             </div>
             <div class="card-body">
               <table class="table data_table">

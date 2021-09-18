@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 18/09/2021 às 13:13
+-- Tempo de geração: 18/09/2021 às 13:44
 -- Versão do servidor: 10.1.32-MariaDB
 -- Versão do PHP: 7.0.30
 
@@ -68,14 +68,14 @@ CREATE TABLE `pricings` (
   `value_month` varchar(20) NOT NULL,
   `number_vacancies` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `update_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
+  `updated_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Fazendo dump de dados para tabela `pricings`
 --
 
-INSERT INTO `pricings` (`id`, `category`, `value_hour`, `value_month`, `number_vacancies`, `active`, `update_on`) VALUES
+INSERT INTO `pricings` (`id`, `category`, `value_hour`, `value_month`, `number_vacancies`, `active`, `updated_on`) VALUES
 (1, 'Veículo pequeno', '10,00', '130,00', 30, 1, '0000-00-00 00:00:00'),
 (2, 'Veículo médio', '15,00', '150,00', 30, 0, '2021-09-18 16:10:15');
 
@@ -101,14 +101,14 @@ CREATE TABLE `system` (
   `city` varchar(45) DEFAULT NULL,
   `state` varchar(2) DEFAULT NULL,
   `txt_ticket` tinytext,
-  `update_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Fazendo dump de dados para tabela `system`
 --
 
-INSERT INTO `system` (`id`, `name_social`, `name_fantasy`, `cnpj`, `ie`, `telephone`, `cellphone`, `email`, `site_url`, `zip_code`, `address`, `number`, `city`, `state`, `txt_ticket`, `update_on`) VALUES
+INSERT INTO `system` (`id`, `name_social`, `name_fantasy`, `cnpj`, `ie`, `telephone`, `cellphone`, `email`, `site_url`, `zip_code`, `address`, `number`, `city`, `state`, `txt_ticket`, `updated_on`) VALUES
 (1, 'Park Now System', 'Park Now', '80.838.809/0001-26', '683.90228-49', '(41) 3232-3030', '(41) 9999-9999', 'parknow@contato.com.br', 'http://parknow.com.br', '58140-000', 'Rua Pedro Grangeiro', '664', 'Areial', 'PB', 'Park Now - Um novo conceito em estacionamento', '2021-09-18 16:07:55');
 
 -- --------------------------------------------------------
