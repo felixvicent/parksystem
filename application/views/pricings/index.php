@@ -8,7 +8,7 @@
         <div class="row align-items-end">
           <div class="col-lg-8">
             <div class="page-header-title">
-              <i class="ik ik-users bg-blue"></i>
+              <i class="ik ik-dollar-sign bg-blue"></i>
               <div class="d-inline">
                 <h5><?php echo $title ?></h5>
               </div>
@@ -66,29 +66,30 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Usuário</th>
-                    <th>E-mail</th>
-                    <th>Nome</th>
-                    <th>Perfil de acesso</th>
-                    <th>Ativo</th>
+                    <th>Categoria</th>
+                    <th>Valor da hora</th>
+                    <th>valor mensalidade</th>
+                    <th class="text-center">Número de vagas</th>
+                    <th>Ativa</th>
                     <th class="nosort text-right pr-25">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($users as $user) : ?>
+                  <?php
+                  foreach ($pricings as $pricing) : ?>
                     <tr>
-                      <td><?php echo $user->id; ?></td>
-                      <td><?php echo $user->username; ?></td>
-                      <td><?php echo $user->email; ?></td>
-                      <td><?php echo $user->first_name; ?></td>
-                      <td><?php echo ($this->ion_auth->is_admin($user->id) ? 'Administrador' : 'Atendente'); ?></td>
-                      <td><?php echo ($user->active == 1 ? '<span class="badge badge-pill badge-success"><i class="ik ik-unlock"></i>&nbsp;Sim</span>' : '<span class="badge badge-pill badge-warning"><i class="ik ik-lock"></i>&nbsp;Não</span>'); ?></td>
+                      <td><?php echo $pricing->id; ?></td>
+                      <td><?php echo $pricing->category; ?></td>
+                      <td><?php echo 'R$&nbsp;' . $pricing->value_hour; ?></td>
+                      <td><?php echo 'R$&nbsp;' . $pricing->value_month; ?></td>
+                      <td class="text-center"><?php echo $pricing->number_vacancies; ?></td>
+                      <td><?php echo ($pricing->active == 1 ? '<span class="badge badge-pill badge-success"><i class="ik ik-unlock"></i>&nbsp;Sim</span>' : '<span class="badge badge-pill badge-warning"><i class="ik ik-lock"></i>&nbsp;Não</span>'); ?></td>
                       <td class="text-right">
-                        <a data-toggle="tooltip" data-placement="bottom" title="Editar usuários" href="<?php echo base_url('users/form/' . $user->id) ?>" class="btn btn-icon btn-primary"><i class="ik ik-edit-2"></i></a>
-                        <button type="button" data-toggle="modal" data-target="#user-<?php echo $user->id; ?>" class="btn btn-icon btn-danger"><i class="ik ik-trash-2"></i></a>
+                        <a data-toggle="tooltip" data-placement="bottom" title="Editar precificações" href="<?php echo base_url('pricings/form/' . $pricing->id) ?>" class="btn btn-icon btn-primary"><i class="ik ik-edit-2"></i></a>
+                        <button type="button" data-toggle="modal" data-target="#pricing-<?php echo $pricing->id; ?>" class="btn btn-icon btn-danger"><i class="ik ik-trash-2"></i></a>
                       </td>
                     </tr>
-                    <div class="modal fade" id="user-<?php echo $user->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterLabel" aria-hidden="true">
+                    <div class="modal fade" id="pricing-<?php echo $pricing->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -96,11 +97,11 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                           </div>
                           <div class="modal-body">
-                            <p>Deseja realmente excluir o usuário <?php echo $user->username ?></p>
+                            <p>Deseja realmente excluir a precificação de <?php echo $pricing->category ?></p>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Não, voltar</button>
-                            <a href="<?php echo base_url('users/delete/' . $user->id); ?>" class="btn btn-danger">Sim, excluir</a>
+                            <a href="<?php echo base_url('pricings/delete/' . $pricing->id); ?>" class="btn btn-danger">Sim, excluir</a>
                           </div>
                         </div>
                       </div>

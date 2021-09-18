@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 17/09/2021 às 09:09
+-- Tempo de geração: 18/09/2021 às 13:13
 -- Versão do servidor: 10.1.32-MariaDB
 -- Versão do PHP: 7.0.30
 
@@ -55,9 +55,30 @@ CREATE TABLE `login_attempts` (
   `time` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Fazendo dump de dados para tabela `login_attempts`
+-- Estrutura para tabela `pricings`
 --
+
+CREATE TABLE `pricings` (
+  `id` int(11) NOT NULL,
+  `category` varchar(50) NOT NULL,
+  `value_hour` varchar(50) NOT NULL,
+  `value_month` varchar(20) NOT NULL,
+  `number_vacancies` int(11) NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  `update_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Fazendo dump de dados para tabela `pricings`
+--
+
+INSERT INTO `pricings` (`id`, `category`, `value_hour`, `value_month`, `number_vacancies`, `active`, `update_on`) VALUES
+(1, 'Veículo pequeno', '10,00', '130,00', 30, 1, '0000-00-00 00:00:00'),
+(2, 'Veículo médio', '15,00', '150,00', 30, 0, '2021-09-18 16:10:15');
+
 -- --------------------------------------------------------
 
 --
@@ -66,29 +87,29 @@ CREATE TABLE `login_attempts` (
 
 CREATE TABLE `system` (
   `id` int(11) NOT NULL,
-  `razao_social` varchar(145) DEFAULT NULL,
-  `nome_fantasia` varchar(145) DEFAULT NULL,
+  `name_social` varchar(145) DEFAULT NULL,
+  `name_fantasy` varchar(145) DEFAULT NULL,
   `cnpj` varchar(25) DEFAULT NULL,
   `ie` varchar(25) DEFAULT NULL,
-  `telefone_fixo` varchar(25) DEFAULT NULL,
-  `telefone_movel` varchar(25) NOT NULL,
+  `telephone` varchar(25) DEFAULT NULL,
+  `cellphone` varchar(25) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   `site_url` varchar(100) DEFAULT NULL,
-  `cep` varchar(25) DEFAULT NULL,
-  `endereco` varchar(145) DEFAULT NULL,
-  `numero` varchar(25) DEFAULT NULL,
-  `cidade` varchar(45) DEFAULT NULL,
-  `estado` varchar(2) DEFAULT NULL,
+  `zip_code` varchar(25) DEFAULT NULL,
+  `address` varchar(145) DEFAULT NULL,
+  `number` varchar(25) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `state` varchar(2) DEFAULT NULL,
   `txt_ticket` tinytext,
-  `data_alteracao` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `update_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Fazendo dump de dados para tabela `system`
 --
 
-INSERT INTO `system` (`id`, `razao_social`, `nome_fantasia`, `cnpj`, `ie`, `telefone_fixo`, `telefone_movel`, `email`, `site_url`, `cep`, `endereco`, `numero`, `cidade`, `estado`, `txt_ticket`, `data_alteracao`) VALUES
-(1, 'Park Now System', 'Park Now', '80.838.809/0001-26', '683.90228-49', '(41) 3232-3030', '(41) 9999-9999', 'parknow@contato.com.br', 'http://parknow.com.br', '58140000', 'Rua Pedro Grangeiro', '664', 'Paraíba', 'PB', 'Park Now - Seu veículo em boas mãos.', '2021-09-17 12:08:55');
+INSERT INTO `system` (`id`, `name_social`, `name_fantasy`, `cnpj`, `ie`, `telephone`, `cellphone`, `email`, `site_url`, `zip_code`, `address`, `number`, `city`, `state`, `txt_ticket`, `update_on`) VALUES
+(1, 'Park Now System', 'Park Now', '80.838.809/0001-26', '683.90228-49', '(41) 3232-3030', '(41) 9999-9999', 'parknow@contato.com.br', 'http://parknow.com.br', '58140-000', 'Rua Pedro Grangeiro', '664', 'Areial', 'PB', 'Park Now - Um novo conceito em estacionamento', '2021-09-18 16:07:55');
 
 -- --------------------------------------------------------
 
@@ -124,8 +145,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `updated_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$12$xwTCZ2nDPZXfq0p48T9lFOUVnxSCYDteFO3tGLAax21igCwYLXFDm', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, '2021-09-17 11:49:30', 1631879370, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(8, '::1', 'felps', '$2y$10$Ul2Ib4sxSFH6wVgCEQC2N.kMF84eFKXc0YpsiF41urONtD3SUpk7y', 'felixvicent1306@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1631471999, '2021-09-17 12:04:37', 1631880277, 1, 'Félix', 'Vicente', NULL, NULL);
+(1, '127.0.0.1', 'administrator', '$2y$12$xwTCZ2nDPZXfq0p48T9lFOUVnxSCYDteFO3tGLAax21igCwYLXFDm', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, '2021-09-18 15:48:57', 1631980137, 1, 'Admin', 'istrator', 'ADMIN', '0'),
+(8, '::1', 'felps', '$2y$10$Ul2Ib4sxSFH6wVgCEQC2N.kMF84eFKXc0YpsiF41urONtD3SUpk7y', 'felixvicent1306@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1631471999, '2021-09-18 15:47:21', 1631980041, 1, 'Félix', 'Vicente', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -161,6 +182,12 @@ ALTER TABLE `groups`
 -- Índices de tabela `login_attempts`
 --
 ALTER TABLE `login_attempts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `pricings`
+--
+ALTER TABLE `pricings`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -202,7 +229,13 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT de tabela `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `pricings`
+--
+ALTER TABLE `pricings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `system`

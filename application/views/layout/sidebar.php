@@ -32,6 +32,9 @@
 
         <div class="nav-lavel">Administração</div>
         <div class="nav-item">
+          <a href="<?php echo base_url('pricings') ?>"><i class="ik ik-dollar-sign"></i><span>Precificações</span></a>
+        </div>
+        <div class="nav-item">
           <a href="<?php echo base_url('users') ?>"><i class="ik ik-users"></i><span>Usuários</span></a>
         </div>
         <div class="nav-item">

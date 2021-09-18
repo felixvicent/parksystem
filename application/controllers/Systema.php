@@ -15,17 +15,17 @@ class Systema extends CI_Controller
   public function index()
   {
 
-    $this->form_validation->set_rules('razao_social', 'Razão social', 'trim|required|min_length[5]|max_length[145]');
-    $this->form_validation->set_rules('nome_fantasia', 'Nome fantasia', 'trim|required|min_length[5]|max_length[145]');
+    $this->form_validation->set_rules('name_social', 'Razão social', 'trim|required|min_length[5]|max_length[145]');
+    $this->form_validation->set_rules('name_fantasy', 'Nome fantasia', 'trim|required|min_length[5]|max_length[145]');
     $this->form_validation->set_rules('cnpj', 'CNPJ', 'trim|required|exact_length[18]');
     $this->form_validation->set_rules('ie', 'Inscrição estadual', 'trim|required|max_length[25]');
-    $this->form_validation->set_rules('telefone_fixo', 'Telefone fixo', 'trim|required|exact_length[14]');
-    $this->form_validation->set_rules('telefone_movel', 'Telefone movel', 'trim|required|min_length[14]|max_length[15]');
-    $this->form_validation->set_rules('cep', 'CEP', 'trim|required|exact_length[9]');
-    $this->form_validation->set_rules('endereco', 'Endereço', 'trim|required|min_length[5]|max_length[145]');
-    $this->form_validation->set_rules('numero', 'Número', 'trim|required|min_length[1]|max_length[25]');
-    $this->form_validation->set_rules('cidade', 'Cidade', 'trim|required|min_length[3]|max_length[45]');
-    $this->form_validation->set_rules('estado', 'UF', 'trim|required|exact_length[2]');
+    $this->form_validation->set_rules('telephone', 'Telefone fixo', 'trim|required|exact_length[14]');
+    $this->form_validation->set_rules('cellphone', 'Telefone movel', 'trim|required|min_length[14]|max_length[15]');
+    $this->form_validation->set_rules('zip_code', 'CEP', 'trim|required|exact_length[9]');
+    $this->form_validation->set_rules('address', 'Endereço', 'trim|required|min_length[5]|max_length[145]');
+    $this->form_validation->set_rules('number', 'Número', 'trim|required|min_length[1]|max_length[25]');
+    $this->form_validation->set_rules('city', 'Cidade', 'trim|required|min_length[3]|max_length[45]');
+    $this->form_validation->set_rules('state', 'UF', 'trim|required|exact_length[2]');
     $this->form_validation->set_rules('site_url', 'URL do site', 'trim|required|valid_url|max_length[100]');
     $this->form_validation->set_rules('email', 'Email de contato', 'trim|required|valid_email|max_length[100]');
     $this->form_validation->set_rules('txt_ticket', 'Texto do ticket', 'trim|max_length[500]');
@@ -33,17 +33,17 @@ class Systema extends CI_Controller
     if ($this->form_validation->run()) {
       $data = elements(
         array(
-          'razao_social',
-          'nome_fantasia',
+          'name_social',
+          'name_fantasy',
           'cnpj',
           'ie',
-          'telefone_fixo',
-          'telefone_movel',
-          'cep',
-          'endereco',
-          'numero',
-          'cidade',
-          'estado',
+          'telephone',
+          'cellphone',
+          'zip_code',
+          'address',
+          'number',
+          'city',
+          'state',
           'site_url',
           'email',
           'txt_ticket',

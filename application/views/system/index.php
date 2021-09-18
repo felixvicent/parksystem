@@ -43,20 +43,20 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <?php echo isset($system) ? '<i class="ik ik-calendar ik-2x"></i>&nbsp; Última atualização: ' . formata_data_banco_com_hora($system->data_alteracao) : '' ?>
+              <?php echo isset($system) ? '<i class="ik ik-calendar ik-2x"></i>&nbsp; Última atualização: ' . formata_data_banco_com_hora($system->update_on) : '' ?>
             </div>
             <div class="card-body">
               <form class="forms-sample" name="form_system" method="POST">
                 <div class="form-group row">
                   <div class="col-md-6">
                     <label>Razão social</label>
-                    <input type="text" class="form-control" placeholder="Razão social" name="razao_social" value="<?php echo (isset($system) ? $system->razao_social : set_value('razao_social')) ?>">
-                    <?php echo form_error('razao_social', '<div class="text-danger">', '</div>') ?>
+                    <input type="text" class="form-control" placeholder="Razão social" name="name_social" value="<?php echo (isset($system) ? $system->name_social : set_value('name_social')) ?>">
+                    <?php echo form_error('name_social', '<div class="text-danger">', '</div>') ?>
                   </div>
                   <div class="col-md-6">
                     <label>Nome fantasia</label>
-                    <input type="text" class="form-control" placeholder="Nome fantasia" name="nome_fantasia" value="<?php echo (isset($system) ? $system->nome_fantasia : set_value('nome_fantasia')) ?>">
-                    <?php echo form_error('nome_fantasia', '<div class="text-danger">', '</div>') ?>
+                    <input type="text" class="form-control" placeholder="Nome fantasia" name="name_fantasy" value="<?php echo (isset($system) ? $system->name_fantasy : set_value('name_fantasy')) ?>">
+                    <?php echo form_error('name_fantasy', '<div class="text-danger">', '</div>') ?>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -72,40 +72,40 @@
                   </div>
                   <div class="col-md-3">
                     <label>Telefone fixo</label>
-                    <input type="text" class="form-control phone_with_ddd" placeholder="Telefone fixo" name="telefone_fixo" value="<?php echo (isset($system) ? $system->telefone_fixo : set_value('telefone_fixo')) ?>">
-                    <?php echo form_error('telefone_fixo', '<div class="text-danger">', '</div>') ?>
+                    <input type="text" class="form-control phone_with_ddd" placeholder="Telefone fixo" name="telephone" value="<?php echo (isset($system) ? $system->telephone : set_value('telephone')) ?>">
+                    <?php echo form_error('telephone', '<div class="text-danger">', '</div>') ?>
                   </div>
                   <div class="col-md-3">
                     <label>Telefone movel</label>
-                    <input type="text" class="form-control sp_celphones" placeholder="Telefone movel" name="telefone_movel" value="<?php echo (isset($system) ? $system->telefone_movel : set_value('telefone_movel')) ?>">
-                    <?php echo form_error('telefone_movel', '<div class="text-danger">', '</div>') ?>
+                    <input type="text" class="form-control sp_cellphones" placeholder="Telefone movel" name="cellphone" value="<?php echo (isset($system) ? $system->cellphone : set_value('cellphone')) ?>">
+                    <?php echo form_error('cellphone', '<div class="text-danger">', '</div>') ?>
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-md-2">
                     <label>CEP</label>
-                    <input type="text" class="form-control cep" placeholder="CEP" name="cep" value="<?php echo (isset($system) ? $system->cep : set_value('cep')) ?>">
-                    <?php echo form_error('cep', '<div class="text-danger">', '</div>') ?>
+                    <input type="text" class="form-control cep" placeholder="CEP" name="zip_code" value="<?php echo (isset($system) ? $system->zip_code : set_value('zip_code')) ?>">
+                    <?php echo form_error('zip_code', '<div class="text-danger">', '</div>') ?>
                   </div>
                   <div class="col-md-4">
                     <label>Endereço</label>
-                    <input type="text" class="form-control" placeholder="Endereço" name="endereco" value="<?php echo (isset($system) ? $system->endereco : set_value('endereco')) ?>">
-                    <?php echo form_error('endereco', '<div class="text-danger">', '</div>') ?>
+                    <input type="text" class="form-control" placeholder="Endereço" name="address" value="<?php echo (isset($system) ? $system->address : set_value('address')) ?>">
+                    <?php echo form_error('address', '<div class="text-danger">', '</div>') ?>
                   </div>
                   <div class="col-md-2">
                     <label>Número</label>
-                    <input type="text" class="form-control" placeholder="Número" name="numero" value="<?php echo (isset($system) ? $system->numero : set_value('numero')) ?>">
-                    <?php echo form_error('numero', '<div class="text-danger">', '</div>') ?>
+                    <input type="text" class="form-control" placeholder="Número" name="number" value="<?php echo (isset($system) ? $system->number : set_value('number')) ?>">
+                    <?php echo form_error('number', '<div class="text-danger">', '</div>') ?>
                   </div>
                   <div class="col-md-3">
                     <label>Cidade</label>
-                    <input type="text" class="form-control" placeholder="Cidade" name="cidade" value="<?php echo (isset($system) ? $system->cidade : set_value('cidade')) ?>">
-                    <?php echo form_error('cidade', '<div class="text-danger">', '</div>') ?>
+                    <input type="text" class="form-control" placeholder="Cidade" name="city" value="<?php echo (isset($system) ? $system->city : set_value('city')) ?>">
+                    <?php echo form_error('city', '<div class="text-danger">', '</div>') ?>
                   </div>
                   <div class="col-md-1">
                     <label>UF</label>
-                    <input type="text" class="form-control uf" placeholder="UF" name="estado" value="<?php echo (isset($system) ? $system->estado : set_value('estado')) ?>">
-                    <?php echo form_error('estado', '<div class="text-danger">', '</div>') ?>
+                    <input type="text" class="form-control uf" placeholder="UF" name="state" value="<?php echo (isset($system) ? $system->state : set_value('state')) ?>">
+                    <?php echo form_error('state', '<div class="text-danger">', '</div>') ?>
                   </div>
                 </div>
                 <div class="form-group row">
