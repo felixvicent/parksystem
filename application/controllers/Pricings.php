@@ -47,6 +47,32 @@ class Pricings extends CI_Controller
         $this->form_validation->set_rules('number_vacancies', 'Número de vagas', 'trim|required|integer|greater_than[0]');
 
         if ($this->form_validation->run()) {
+          $active = $this->input->post('active');
+
+          if ($active == 0) {
+            if ($this->db->table_exists('park')) {
+              if ($this->general->get_by_id('park', array('pricing_id' => $id, 'status' => 0))) {
+                $this->session->set_flashdata('error', 'Essa categoria está sendo utilizada em estacionar');
+                redirect('pricings');
+              }
+            }
+          }
+
+          $data = elements(array(
+            'category',
+            'value_hour',
+            'value_month',
+            'number_vacancies',
+            'active'
+          ), $this->input->post());
+
+          $data = html_escape($data);
+
+          if ($this->general->update('pricings', array('id' => $id), $data)) {
+            redirect('pricings');
+          } else {
+            redirect('pricings');
+          }
         } else {
           $data = array(
             "title" => "Editar Precificação",
@@ -67,23 +93,18 @@ class Pricings extends CI_Controller
 
   public function delete($id = null)
   {
-    if (!$id || !$this->general->get_by_id('users', array('id' => $id))) {
-      $this->session->set_flashdata('error', 'Usuário não encontrado');
-      redirect('users');
-    } else {
-      if ($this->ion_auth->is_admin($id)) {
-        $this->session->set_flashdata('error', 'Administrador não pode ser excluido');
-        redirect('users');
-      }
-
-      if ($this->ion_auth->delete_user($id)) {
-        $this->session->set_flashdata('sucesso', 'Usuário excluido com sucesso');
-      } else {
-        $this->session->set_flashdata('error', 'usuário não pode ser excluido');
-      }
-
-      redirect('users');
+    if (!$id || !$this->general->get_by_id('pricings', array('id' => $id))) {
+      $this->session->set_flashdata('error', 'Precificação não encontrado');
+      redirect('pricings');
     }
+    if ($this->general->get_by_id('pricings', array('id' => $id, 'active' => 1))) {
+      $this->session->set_flashdata('error', 'Precificação ativa não pode ser excluida');
+      redirect('pricings');
+    }
+
+    $this->general->delete('pricings', array('id' => $id));
+
+    redirect('pricings');
   }
 
   public function category_check($category)
