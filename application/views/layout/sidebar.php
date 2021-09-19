@@ -2,9 +2,9 @@
   <div class="sidebar-header">
     <a class="header-brand" href="index.html">
       <div class="logo-img">
-        <img src="src/img/brand-white.svg" class="header-brand-img" alt="lavalite">
+        <!-- <img src="src/img/brand-white.svg" class="header-brand-img" alt="lavalite"> -->
       </div>
-      <span class="text">ThemeKit</span>
+      <span class="text">Park Now</span>
     </a>
     <button type="button" class="nav-toggle"><i data-toggle="expanded" class="ik ik-toggle-right toggle-icon"></i></button>
     <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
@@ -13,34 +13,25 @@
   <div class="sidebar-content">
     <div class="nav-container">
       <nav id="main-menu-navigation" class="navigation-main">
-        <div class="nav-lavel">Navigation</div>
-        <div class="nav-item active">
-          <a href="index.html"><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></a>
+        <div class="nav-lavel">Park Now</div>
+        <div class="nav-item <?php echo ($this->router->fetch_class() == 'home' ? 'active' : '') ?>">
+          <a href="<?php echo base_url('home') ?>"><i class="ik ik-home"></i><span>Home</span></a>
         </div>
-        <div class="nav-item">
-          <a href="pages/navbar.html"><i class="ik ik-menu"></i><span>Navigation</span> <span class="badge badge-success">New</span></a>
-        </div>
-        <div class="nav-item has-sub">
-          <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Widgets</span> <span class="badge badge-danger">150+</span></a>
-          <div class="submenu-content">
-            <a href="pages/widgets.html" class="menu-item">Basic</a>
-            <a href="pages/widget-statistic.html" class="menu-item">Statistic</a>
-            <a href="pages/widget-data.html" class="menu-item">Data</a>
-            <a href="pages/widget-chart.html" class="menu-item">Chart Widget</a>
-          </div>
+        <div class="nav-item <?php echo ($this->router->fetch_class() == 'monthly' ? 'active' : '') ?>">
+          <a href="<?php echo base_url('monthly') ?>"><i class="ik ik-clipboard"></i><span>Mensalistas</span></a>
         </div>
 
         <div class="nav-lavel">Administração</div>
-        <div class="nav-item">
+        <div class="nav-item <?php echo ($this->router->fetch_class() == 'pricings' ? 'active' : '') ?>">
           <a href="<?php echo base_url('pricings') ?>"><i class="ik ik-dollar-sign"></i><span>Precificações</span></a>
         </div>
-        <div class="nav-item">
+        <div class="nav-item <?php echo ($this->router->fetch_class() == 'payments' ? 'active' : '') ?>">
           <a href="<?php echo base_url('payments') ?>"><i class="ik ik-credit-card"></i><span>Formas de pagamentos</span></a>
         </div>
-        <div class="nav-item">
+        <div class="nav-item <?php echo ($this->router->fetch_class() == 'users' ? 'active' : '') ?>">
           <a href="<?php echo base_url('users') ?>"><i class="ik ik-users"></i><span>Usuários</span></a>
         </div>
-        <div class="nav-item">
+        <div class="nav-item <?php echo ($this->router->fetch_class() == 'systema' ? 'active' : '') ?>">
           <a href="<?php echo base_url('systema') ?>"><i class="ik ik-settings"></i><span>Sistema</span></a>
         </div>
       </nav>

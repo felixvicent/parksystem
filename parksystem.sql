@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 19/09/2021 às 13:12
+-- Tempo de geração: 19/09/2021 às 14:55
 -- Versão do servidor: 10.1.32-MariaDB
 -- Versão do PHP: 7.0.30
 
@@ -58,6 +58,44 @@ CREATE TABLE `login_attempts` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `monthly`
+--
+
+CREATE TABLE `monthly` (
+  `id` int(11) NOT NULL,
+  `register_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `first_name` varchar(45) NOT NULL,
+  `last_name` varchar(150) NOT NULL,
+  `birth_date` date DEFAULT NULL,
+  `cpf` varchar(20) NOT NULL,
+  `rg` varchar(20) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `telephone` varchar(20) DEFAULT NULL,
+  `cellphone` varchar(20) NOT NULL,
+  `zip_code` varchar(10) NOT NULL,
+  `address` varchar(155) NOT NULL,
+  `number` varchar(20) NOT NULL,
+  `district` varchar(45) NOT NULL,
+  `city` varchar(105) NOT NULL,
+  `state` varchar(2) NOT NULL,
+  `complement` varchar(145) NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  `expiration` int(11) NOT NULL,
+  `obs` tinytext,
+  `updated_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Fazendo dump de dados para tabela `monthly`
+--
+
+INSERT INTO `monthly` (`id`, `register_date`, `first_name`, `last_name`, `birth_date`, `cpf`, `rg`, `email`, `telephone`, `cellphone`, `zip_code`, `address`, `number`, `district`, `city`, `state`, `complement`, `active`, `expiration`, `obs`, `updated_on`) VALUES
+(1, '2020-03-13 22:00:02', 'Lucio', 'Souza', '2020-03-13', '359.731.420-19', '334.44644-12', 'lucio@gmail.com', '(83) 3368-1070', '(41) 9999-9999', '80530-000', 'Rua de Curitiba', '45', 'Centro', 'Curitiba', 'PR', '', 1, 31, '', '2021-09-19 17:45:21'),
+(2, '2020-03-16 18:32:17', 'João', 'Antonio', '1984-03-13', '964.222.370-81', '33.036.268-9', 'joao@gmail.com', '', '', '80120-000', 'Rua do Trabalho', 'sem número', 'Centro', 'Curitiba', 'PR', '', 0, 10, '', '2020-03-20 02:47:42');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `payment_methods`
 --
 
@@ -67,6 +105,16 @@ CREATE TABLE `payment_methods` (
   `active` tinyint(1) NOT NULL,
   `updated_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Fazendo dump de dados para tabela `payment_methods`
+--
+
+INSERT INTO `payment_methods` (`id`, `name`, `active`, `updated_on`) VALUES
+(1, 'Dinheiro', 1, '2021-09-19 16:48:38'),
+(3, 'Cartão de Credito', 1, '0000-00-00 00:00:00'),
+(4, 'Cartão de Debito', 1, '0000-00-00 00:00:00'),
+(5, 'Pix', 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -91,7 +139,8 @@ CREATE TABLE `pricings` (
 INSERT INTO `pricings` (`id`, `category`, `value_hour`, `value_month`, `number_vacancies`, `active`, `updated_on`) VALUES
 (1, 'Carros pequenos', '10,00', '130,00', 30, 1, '2021-09-18 17:16:51'),
 (2, 'Veículo médio', '15,00', '150,00', 30, 1, '0000-00-00 00:00:00'),
-(3, 'Veículo grande', '20,00', '200,00', 30, 1, '0000-00-00 00:00:00');
+(3, 'Veículo grande', '20,00', '200,00', 30, 1, '0000-00-00 00:00:00'),
+(4, 'Motos', '7,00', '70,00', 30, 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -160,7 +209,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `updated_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2y$12$xwTCZ2nDPZXfq0p48T9lFOUVnxSCYDteFO3tGLAax21igCwYLXFDm', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, '2021-09-18 15:48:57', 1631980137, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(8, '::1', 'felps', '$2y$10$Ul2Ib4sxSFH6wVgCEQC2N.kMF84eFKXc0YpsiF41urONtD3SUpk7y', 'felixvicent1306@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1631471999, '2021-09-19 15:59:00', 1632067140, 1, 'Félix', 'Vicente', NULL, NULL);
+(8, '::1', 'felps', '$2y$10$Ul2Ib4sxSFH6wVgCEQC2N.kMF84eFKXc0YpsiF41urONtD3SUpk7y', 'felixvicent1306@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1631471999, '2021-09-19 16:30:41', 1632069041, 1, 'Félix', 'Vicente', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -196,6 +245,12 @@ ALTER TABLE `groups`
 -- Índices de tabela `login_attempts`
 --
 ALTER TABLE `login_attempts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `monthly`
+--
+ALTER TABLE `monthly`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -252,16 +307,22 @@ ALTER TABLE `login_attempts`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `monthly`
+--
+ALTER TABLE `monthly`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
 -- AUTO_INCREMENT de tabela `payment_methods`
 --
 ALTER TABLE `payment_methods`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `pricings`
 --
 ALTER TABLE `pricings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `system`

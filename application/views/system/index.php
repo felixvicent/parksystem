@@ -43,7 +43,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <?php echo isset($system) ? '<i class="ik ik-calendar ik-2x"></i>&nbsp; Última atualização: ' . formata_data_banco_com_hora($system->update_on) : '' ?>
+              <?php echo isset($system) ? '<i class="ik ik-calendar ik-2x"></i>&nbsp; Última atualização: ' . formata_data_banco_com_hora($system->updated_on) : '' ?>
             </div>
             <div class="card-body">
               <form class="forms-sample" name="form_system" method="POST">
@@ -77,7 +77,7 @@
                   </div>
                   <div class="col-md-3">
                     <label>Telefone movel</label>
-                    <input type="text" class="form-control sp_cellphones" placeholder="Telefone movel" name="cellphone" value="<?php echo (isset($system) ? $system->cellphone : set_value('cellphone')) ?>">
+                    <input type="text" class="form-control sp_celphones" placeholder="Telefone movel" name="cellphone" value="<?php echo (isset($system) ? $system->cellphone : set_value('cellphone')) ?>">
                     <?php echo form_error('cellphone', '<div class="text-danger">', '</div>') ?>
                   </div>
                 </div>

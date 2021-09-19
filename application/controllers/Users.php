@@ -78,13 +78,13 @@ class Users extends CI_Controller
       $this->load->view('layout/footer');
     } else {
       if (!$this->ion_auth->user($id)->row()) {
-        exit('User not exists');
+        $this->session->set_flashdata('error', 'Usuário não encontrado');
       } else {
         $atual_profile = $this->ion_auth->get_users_groups($id)->result();
 
-        $this->form_validation->set_rules('first_name', 'Nome', 'trim|required|min_length[5]|max_length[20]');
+        $this->form_validation->set_rules('first_name', 'Nome', 'trim|required|min_length[4]|max_length[20]');
         $this->form_validation->set_rules('last_name', 'Sobrenome', 'trim|required|min_length[5]|max_length[20]');
-        $this->form_validation->set_rules('username', 'Usuário', 'trim|required|min_length[3]|max_length[20]|callback_username_check');
+        $this->form_validation->set_rules('birth_date', 'Data de nascimento', 'trim|required|min_length[3]|max_length[20]|callback_username_check');
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_email_check');
         $this->form_validation->set_rules('password', 'Senha', 'trim|min_length[8]');
         $this->form_validation->set_rules('confirm_password', 'Confirma senha', 'trim|matches[password]');
