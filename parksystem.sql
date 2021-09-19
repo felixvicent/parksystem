@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 18/09/2021 às 13:44
+-- Tempo de geração: 19/09/2021 às 13:12
 -- Versão do servidor: 10.1.32-MariaDB
 -- Versão do PHP: 7.0.30
 
@@ -58,6 +58,19 @@ CREATE TABLE `login_attempts` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `payment_methods`
+--
+
+CREATE TABLE `payment_methods` (
+  `id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  `updated_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `pricings`
 --
 
@@ -76,8 +89,9 @@ CREATE TABLE `pricings` (
 --
 
 INSERT INTO `pricings` (`id`, `category`, `value_hour`, `value_month`, `number_vacancies`, `active`, `updated_on`) VALUES
-(1, 'Veículo pequeno', '10,00', '130,00', 30, 1, '0000-00-00 00:00:00'),
-(2, 'Veículo médio', '15,00', '150,00', 30, 0, '2021-09-18 16:10:15');
+(1, 'Carros pequenos', '10,00', '130,00', 30, 1, '2021-09-18 17:16:51'),
+(2, 'Veículo médio', '15,00', '150,00', 30, 1, '0000-00-00 00:00:00'),
+(3, 'Veículo grande', '20,00', '200,00', 30, 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -146,7 +160,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `updated_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2y$12$xwTCZ2nDPZXfq0p48T9lFOUVnxSCYDteFO3tGLAax21igCwYLXFDm', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, '2021-09-18 15:48:57', 1631980137, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(8, '::1', 'felps', '$2y$10$Ul2Ib4sxSFH6wVgCEQC2N.kMF84eFKXc0YpsiF41urONtD3SUpk7y', 'felixvicent1306@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1631471999, '2021-09-18 15:47:21', 1631980041, 1, 'Félix', 'Vicente', NULL, NULL);
+(8, '::1', 'felps', '$2y$10$Ul2Ib4sxSFH6wVgCEQC2N.kMF84eFKXc0YpsiF41urONtD3SUpk7y', 'felixvicent1306@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1631471999, '2021-09-19 15:59:00', 1632067140, 1, 'Félix', 'Vicente', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -182,6 +196,12 @@ ALTER TABLE `groups`
 -- Índices de tabela `login_attempts`
 --
 ALTER TABLE `login_attempts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `payment_methods`
+--
+ALTER TABLE `payment_methods`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -229,13 +249,19 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT de tabela `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `payment_methods`
+--
+ALTER TABLE `payment_methods`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `pricings`
 --
 ALTER TABLE `pricings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `system`
