@@ -35,12 +35,46 @@ class Pricings extends CI_Controller
   public function form($id = null)
   {
     if (!$id) {
+      $this->form_validation->set_rules('category', 'Categoria', 'trim|required|min_length[5]|max_length[50]|is_unique[pricings.category]');
+      $this->form_validation->set_rules('value_hour', 'Valor hora', 'trim|required|max_length[50]');
+      $this->form_validation->set_rules('value_month', 'Valor mensalidade', 'trim|required|max_length[50]');
+      $this->form_validation->set_rules('number_vacancies', 'Número de vagas', 'trim|required|integer|greater_than[0]');
+
+      if ($this->form_validation->run()) {
+        $data = elements(array(
+          'category',
+          'value_hour',
+          'value_month',
+          'number_vacancies',
+          'active'
+        ), $this->input->post());
+
+        $data = html_escape($data);
+
+        if ($this->general->insert('pricings', $data)) {
+          redirect('pricings');
+        } else {
+          redirect('pricings');
+        }
+      } else {
+        $data = array(
+          "title" => "Editar Precificação",
+          "pricing" => $this->general->get_by_id('pricings', array('id' => $id)),
+          "scripts" => array(
+            "plugins/mask/jquery.mask.min.js",
+            "plugins/mask/custom.js",
+          )
+        );
+
+        $this->load->view('layout/header', $data);
+        $this->load->view('pricings/form', $data);
+        $this->load->view('layout/footer');
+      }
     } else {
       if (!$this->general->get_by_id('pricings', array('id' => $id))) {
         $this->session->set_flashdata('error', 'Precificação não encontrada');
         redirect('/pricings');
       } else {
-
         $this->form_validation->set_rules('category', 'Categoria', 'trim|required|min_length[5]|max_length[50]|callback_category_check');
         $this->form_validation->set_rules('value_hour', 'Valor hora', 'trim|required|max_length[50]');
         $this->form_validation->set_rules('value_month', 'Valor mensalidade', 'trim|required|max_length[50]');

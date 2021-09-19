@@ -63,8 +63,8 @@
                   <div class="col-md-2">
                     <label>Ativo</label>
                     <select name="active" class="form-control">
-                      <option <?php echo $pricing->active == 0 ? 'selected' : '' ?> value="0">Não</option>
-                      <option <?php echo $pricing->active == 1 ? 'selected' : '' ?> value="1">Sim</option>
+                      <option <?php echo isset($pricing->active) && $pricing->active == 0 ? 'selected' : '' ?> value="0">Não</option>
+                      <option <?php echo isset($pricing->active) && $pricing->active == 1 ? 'selected' : '' ?> value="1">Sim</option>
                     </select>
                   </div>
                 </div>
