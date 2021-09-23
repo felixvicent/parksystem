@@ -21,12 +21,16 @@
           <a href="<?php echo base_url('monthly') ?>"><i class="ik ik-clipboard"></i><span>Mensalistas</span></a>
         </div>
 
+
         <div class="nav-lavel">Administração</div>
         <div class="nav-item <?php echo ($this->router->fetch_class() == 'pricings' ? 'active' : '') ?>">
           <a href="<?php echo base_url('pricings') ?>"><i class="ik ik-dollar-sign"></i><span>Precificações</span></a>
         </div>
         <div class="nav-item <?php echo ($this->router->fetch_class() == 'payments' ? 'active' : '') ?>">
           <a href="<?php echo base_url('payments') ?>"><i class="ik ik-credit-card"></i><span>Formas de pagamentos</span></a>
+        </div>
+        <div class="nav-item <?php echo ($this->router->fetch_class() == 'monthly_payments' ? 'active' : '') ?>">
+          <a href="<?php echo base_url('monthly_payments') ?>"><i class="ik ik-file-text"></i><span>Mensalidades</span></a>
         </div>
         <div class="nav-item <?php echo ($this->router->fetch_class() == 'users' ? 'active' : '') ?>">
           <a href="<?php echo base_url('users') ?>"><i class="ik ik-users"></i><span>Usuários</span></a>
