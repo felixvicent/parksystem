@@ -79,8 +79,8 @@
                 <tbody>
                   <?php foreach ($monthly_payments as $monthly) : ?>
                     <tr>
-                      <td><?php echo $monthly->id; ?></td>
-                      <td><i class="ik ik-eye">&nbsp;</i><a href="<?php echo base_url('monthly/form/' . $monthly->id) ?>"><?php echo $monthly->first_name; ?></a></td>
+                      <td><?php echo $monthly->id_payment; ?></td>
+                      <td><i class="ik ik-eye">&nbsp;</i><a href="<?php echo base_url('monthly/form/' . $monthly->id_payment) ?>"><?php echo $monthly->first_name; ?></a></td>
                       <td><?php echo $monthly->cpf; ?></td>
                       <td><?php echo $monthly->category; ?></td>
                       <td><?php echo $monthly->value_month; ?></td>
@@ -88,11 +88,11 @@
                       <td><?php echo ($monthly->status  == 1 ? formata_data_banco_sem_hora($monthly->payment_date) : 'Em aberto') ?></td>
                       <td><?php echo ($monthly->status == 1 ? '<span class="badge badge-pill badge-success">Paga</span>' : '<span class="badge badge-pill badge-warning">Aberta</span>'); ?></td>
                       <td class="text-right">
-                        <a data-toggle="tooltip" data-placement="bottom" title="<?php echo $monthly->status == 1 ? 'Ver mensalidade' : 'Editar mensalidade' ?>" href=" <?php echo base_url('monthly_payments/form/' . $monthly->id) ?>" class="btn btn-icon btn-primary"><?php echo $monthly->status == 1 ? '<i class="ik ik-eye">' : '<i class="ik ik-edit-2">' ?></i></a>
-                        <button type="button" data-toggle="modal" data-target="#monthly-<?php echo $monthly->id; ?>" class="btn btn-icon btn-danger"><i class="ik ik-trash-2"></i></a>
+                        <a data-toggle="tooltip" data-placement="bottom" title="<?php echo $monthly->status == 1 ? 'Ver mensalidade' : 'Editar mensalidade' ?>" href=" <?php echo base_url('monthly_payments/form/' . $monthly->id_payment) ?>" class="btn btn-icon btn-primary"><?php echo $monthly->status == 1 ? '<i class="ik ik-eye">' : '<i class="ik ik-edit-2">' ?></i></a>
+                        <button type="button" data-toggle="modal" data-target="#monthly-<?php echo $monthly->id_payment; ?>" class="btn btn-icon btn-danger"><i class="ik ik-trash-2"></i></a>
                       </td>
                     </tr>
-                    <div class="modal fade" id="monthly-<?php echo $monthly->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterLabel" aria-hidden="true">
+                    <div class="modal fade" id="monthly-<?php echo $monthly->id_payment; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -104,7 +104,7 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Não, voltar</button>
-                            <a href="<?php echo base_url('monthly_payments/delete/' . $monthly->id); ?>" class="btn btn-danger">Sim, excluir</a>
+                            <a href="<?php echo base_url('monthly_payments/delete/' . $monthly->id_payment); ?>" class="btn btn-danger">Sim, excluir</a>
                           </div>
                         </div>
                       </div>

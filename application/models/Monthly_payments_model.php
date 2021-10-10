@@ -6,6 +6,7 @@ class Monthly_payments_model extends CI_Model
   public function get_all()
   {
     $this->db->select([
+      'monthly_payments.id as id_payment',
       'monthly_payments.*',
       'pricings.id',
       'pricings.category',
