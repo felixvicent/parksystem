@@ -88,7 +88,7 @@
                       <td><?php echo ($monthly->status  == 1 ? formata_data_banco_sem_hora($monthly->payment_date) : 'Em aberto') ?></td>
                       <td><?php echo ($monthly->status == 1 ? '<span class="badge badge-pill badge-success">Paga</span>' : '<span class="badge badge-pill badge-warning">Aberta</span>'); ?></td>
                       <td class="text-right">
-                        <a data-toggle="tooltip" data-placement="bottom" title="Editar mensalista" href="<?php echo base_url('monthly_payments/form/' . $monthly->id) ?>" class="btn btn-icon btn-primary"><i class="ik ik-edit-2"></i></a>
+                        <a data-toggle="tooltip" data-placement="bottom" title="<?php echo $monthly->status == 1 ? 'Ver mensalidade' : 'Editar mensalidade' ?>" href=" <?php echo base_url('monthly_payments/form/' . $monthly->id) ?>" class="btn btn-icon btn-primary"><?php echo $monthly->status == 1 ? '<i class="ik ik-eye">' : '<i class="ik ik-edit-2">' ?></i></a>
                         <button type="button" data-toggle="modal" data-target="#monthly-<?php echo $monthly->id; ?>" class="btn btn-icon btn-danger"><i class="ik ik-trash-2"></i></a>
                       </td>
                     </tr>

@@ -41,7 +41,7 @@ class Monthly_payments extends CI_Controller
         "title" => "Cadastrar mensalidade",
         "pricings" => $this->general->get_all('pricings', array('active' => 1)),
         "monthly" => $this->general->get_all('monthly', array('active' => 1)),
-        // 'modal_text' => 'Os dados estão corretos? </br></br>Depois de salva só será possivel alterar a categoria do veiculo',
+        'modal_text' => 'Os dados estão corretos? </br></br>Depois de salva só será possivel alterar a categoria e a situação',
         "styles" => array(
           "plugins/select2/dist/css/select2.min.css"
         ),
@@ -61,26 +61,49 @@ class Monthly_payments extends CI_Controller
         $this->session->set_flashdata('error', 'Mensalidade não encontrada');
         redirect('monthly_payments');
       } else {
-        $data = array(
-          "title" => "Editar mensalidade",
-          "pricings" => $this->general->get_all('pricings', array('active' => 1)),
-          "monthly" => $this->general->get_all('monthly', array('active' => 1)),
-          "monthly_payment" => $this->general->get_by_id('monthly_payments', array('id' => $id)),
-          'modal_text' => 'Os dados estão corretos? </br></br>Depois de salva só será possivel alterar a categoria do veiculo',
-          "styles" => array(
-            "plugins/select2/dist/css/select2.min.css"
-          ),
-          "scripts" => array(
-            "plugins/mask/jquery.mask.min.js",
-            "plugins/mask/custom.js",
-            "plugins/select2/dist/js/select2.min.js",
-            "js/monthly_payments/custom.js"
-          ),
-        );
+        $this->form_validation->set_rules('pricing_id', 'Categoria', 'required');
 
-        $this->load->view('layout/header', $data);
-        $this->load->view('monthly_payments/form', $data);
-        $this->load->view('layout/footer');
+        if ($this->form_validation->run()) {
+          $data = elements(array(
+            "pricing_id",
+            "monthly_value",
+            "monthly_expiration",
+          ), $this->input->post());
+
+          $data['status'] = $this->input->post('monthly_payment_status');
+          $data['monthly_id'] = $this->input->post('monthly_hidden_id');
+          $data['pricing_id'] = $this->input->post('pricing_hidden_id');
+
+          if ($data['status'] == 1) {
+            $data['payment_date'] = date('Y-m-d H:i:s');
+          }
+
+          $data = html_escape($data);
+
+          $this->general->update('monthly_payments', array('id' => $id), $data);
+          redirect('monthly_payments');
+        } else {
+          $data = array(
+            "title" => "Editar mensalidade",
+            "pricings" => $this->general->get_all('pricings', array('active' => 1)),
+            "monthly" => $this->general->get_all('monthly', array('active' => 1)),
+            "monthly_payment" => $this->general->get_by_id('monthly_payments', array('id' => $id)),
+            'modal_text' => 'Os dados estão corretos? </br></br>Depois de salva só será possivel alterar a categoria e a situação',
+            "styles" => array(
+              "plugins/select2/dist/css/select2.min.css"
+            ),
+            "scripts" => array(
+              "plugins/mask/jquery.mask.min.js",
+              "plugins/mask/custom.js",
+              "plugins/select2/dist/js/select2.min.js",
+              "js/monthly_payments/custom.js"
+            ),
+          );
+
+          $this->load->view('layout/header', $data);
+          $this->load->view('monthly_payments/form', $data);
+          $this->load->view('layout/footer');
+        }
       }
     }
   }

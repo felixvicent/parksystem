@@ -54,7 +54,7 @@
                   </div>
                   <div class="col-md-4 mb-3">
                     <label for="">Melhor dia de vencimento</label>
-                    <input type="text" class="form-control expiration" name="monthy_expiration" value="<?php echo (isset($monthly_payment) ? $monthly_payment->monthly_expiration : set_value('monthly_expiration')) ?>" readonly="">
+                    <input type="text" class="form-control expiration" name="monthly_expiration" value="<?php echo (isset($monthly_payment) ? $monthly_payment->monthly_expiration : set_value('monthly_expiration')) ?>" readonly="">
                     <?php echo form_error('monthly_expiration', '<div class="text-danger">', '</div>') ?>
                   </div>
                 </div>
@@ -86,7 +86,7 @@
                   </div>
                   <div class="col-md-4 mb-3">
                     <label for="">Situação</label>
-                    <select class="form-control" name="mon$monthly_payment_status" <?php echo (isset($monthly_payment) && $monthly_payment->status == 1 ? 'disabled' : ''); ?>>
+                    <select class="form-control" name="monthly_payment_status" <?php echo (isset($monthly_payment) && $monthly_payment->status == 1 ? 'disabled' : ''); ?>>
                       <?php if (isset($monthly_payment)) : ?>
                         <option value="0" <?php echo ($monthly_payment->status == 0 ? 'selected' : '') ?>>Pendente</option>
                         <option value="1" <?php echo ($monthly_payment->status == 1 ? 'selected' : '') ?>>Paga</option>
@@ -116,7 +116,7 @@
                 <?php endif; ?>
                 <a href="<?php echo base_url($this->router->fetch_class()); ?>" class="btn btn-light">Voltar</a>
                 <div class="modal fade" id="monthly" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title" id="demoModalLabel"><i class="ik ik-alert-octagon text-danger"></i>&nbsp;&nbsp;Confirmação de dados!</h5>
