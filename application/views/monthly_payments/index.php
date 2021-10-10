@@ -59,7 +59,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header d-block">
-              <a data-toggle="tooltip" data-placement="bottom" title="Cadastrar mensalista" href="<?php echo base_url('monthly/form') ?>" class="btn bg-blue float-right text-white">Novo</a>
+              <a data-toggle="tooltip" data-placement="bottom" title="Cadastrar mensalista" href="<?php echo base_url('monthly_payments/form') ?>" class="btn bg-blue float-right text-white">Novo</a>
             </div>
             <div class="card-body">
               <table class="table data_table">
@@ -80,7 +80,7 @@
                   <?php foreach ($monthly_payments as $monthly) : ?>
                     <tr>
                       <td><?php echo $monthly->id; ?></td>
-                      <td><?php echo $monthly->first_name; ?></td>
+                      <td><i class="ik ik-eye">&nbsp;</i><a href="<?php echo base_url('monthly/form/' . $monthly->id) ?>"><?php echo $monthly->first_name; ?></a></td>
                       <td><?php echo $monthly->cpf; ?></td>
                       <td><?php echo $monthly->category; ?></td>
                       <td><?php echo $monthly->value_month; ?></td>

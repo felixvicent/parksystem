@@ -33,4 +33,55 @@ class Monthly_payments extends CI_Controller
     $this->load->view('monthly_payments/index', $data);
     $this->load->view('layout/footer');
   }
+
+  public function form($id = null)
+  {
+    if (!$id) {
+      $data = array(
+        "title" => "Cadastrar mensalidade",
+        "pricings" => $this->general->get_all('pricings', array('active' => 1)),
+        "monthly" => $this->general->get_all('monthly', array('active' => 1)),
+        // 'modal_text' => 'Os dados estão corretos? </br></br>Depois de salva só será possivel alterar a categoria do veiculo',
+        "styles" => array(
+          "plugins/select2/dist/css/select2.min.css"
+        ),
+        "scripts" => array(
+          "plugins/mask/jquery.mask.min.js",
+          "plugins/mask/custom.js",
+          "plugins/select2/dist/js/select2.min.js",
+          "js/monthly_payments/custom.js"
+        ),
+      );
+
+      $this->load->view('layout/header', $data);
+      $this->load->view('monthly_payments/form', $data);
+      $this->load->view('layout/footer');
+    } else {
+      if (!$this->general->get_by_id('monthly_payments', array('id' => $id))) {
+        $this->session->set_flashdata('error', 'Mensalidade não encontrada');
+        redirect('monthly_payments');
+      } else {
+        $data = array(
+          "title" => "Editar mensalidade",
+          "pricings" => $this->general->get_all('pricings', array('active' => 1)),
+          "monthly" => $this->general->get_all('monthly', array('active' => 1)),
+          "monthly_payment" => $this->general->get_by_id('monthly_payments', array('id' => $id)),
+          'modal_text' => 'Os dados estão corretos? </br></br>Depois de salva só será possivel alterar a categoria do veiculo',
+          "styles" => array(
+            "plugins/select2/dist/css/select2.min.css"
+          ),
+          "scripts" => array(
+            "plugins/mask/jquery.mask.min.js",
+            "plugins/mask/custom.js",
+            "plugins/select2/dist/js/select2.min.js",
+            "js/monthly_payments/custom.js"
+          ),
+        );
+
+        $this->load->view('layout/header', $data);
+        $this->load->view('monthly_payments/form', $data);
+        $this->load->view('layout/footer');
+      }
+    }
+  }
 }

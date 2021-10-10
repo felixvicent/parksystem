@@ -92,6 +92,15 @@ class Pricings extends CI_Controller
             }
           }
 
+          if ($active == 0) {
+            if ($this->db->table_exists('monthly_payments')) {
+              if ($this->general->get_by_id('monthly_payments', array('pricing_id' => $id, 'status' => 0))) {
+                $this->session->set_flashdata('error', 'Essa categoria está sendo utilizada em mensalistas');
+                redirect('pricings');
+              }
+            }
+          }
+
           $data = elements(array(
             'category',
             'value_hour',

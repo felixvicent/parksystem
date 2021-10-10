@@ -21,7 +21,7 @@
                   <a data-toggle="tooltip" data-placement="bottom" title="Home" href="<?php echo base_url('/') ?>"><i class="ik ik-home"></i></a>
                 </li>
                 <li class="breadcrumb-item">
-                  <a data-toggle="tooltip" data-placement="bottom" title="Mensalistas cadastrados" href="<?php echo base_url('monthly') ?>">Mensalistas</a>
+                  <a data-toggle="tooltip" data-placement="bottom" title="monthly cadastrados" href="<?php echo base_url('monthly_payment') ?>">Mensalistas</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page"><?php echo $title ?></li>
               </ol>
@@ -33,119 +33,107 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <?php echo isset($monthly) ? '<i class="ik ik-calendar ik-2x"></i>&nbsp; Última atualização: ' . formata_data_banco_com_hora($monthly->updated_on) : '' ?>
+              <?php echo isset($monthly_payment) ? '<i class="ik ik-calendar ik-2x"></i>&nbsp; Última atualização: ' . formata_data_banco_com_hora($monthly_payment->updated_on) : '' ?>
             </div>
             <div class="card-body">
-              <form class="forms-sample" name="form_monthly" method="POST">
-                <div class="form-group row">
-                  <div class="col-md-4">
-                    <label>Nome</label>
-                    <input type="text" class="form-control" placeholder="Nome" name="first_name" value="<?php echo (isset($monthly) ? $monthly->first_name : set_value('first_name')) ?>">
-                    <?php echo form_error('first_name', '<div class="text-danger">', '</div>') ?>
+              <form class="forms-sample" name="form_core" method="post">
+                <div class="row mb-3">
+                  <div class="col-md-8 mb-3">
+                    <label for="">Mensalista</label>
+                    <select class="form-control monthly select2" name="monthly_id" <?php echo (isset($monthly_payment) ? 'disabled' : ''); ?>>
+                      <option value="">Escolha...</option>
+                      <?php foreach ($monthly as $month) : ?>
+                        <?php if (isset($monthly_payment)) : ?>
+                          <option value="<?php echo $month->id . ' ' . $month->expiration ?>" <?php echo ($month->id == $monthly_payment->monthly_id ? 'selected' : '') ?>><?php echo $month->first_name . '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;CPF&nbsp&nbsp;' . $month->cpf; ?></option>
+                        <?php else : ?>
+                          <option value="<?php echo $month->id . ' ' . $month->expiration ?>"><?php echo $month->first_name . '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;CPF&nbsp&nbsp;' . $month->cpf; ?></option>
+                        <?php endif; ?>
+                      <?php endforeach; ?>
+                    </select>
+                    <?php echo form_error('monthly_id', '<div class="text-danger">', '</div>') ?>
                   </div>
-                  <div class="col-md-8">
-                    <label>Sobrenome</label>
-                    <input type="text" class="form-control" placeholder="Sobrenome" name="last_name" value="<?php echo (isset($monthly) ? $monthly->last_name : set_value('last_name')) ?>">
-                    <?php echo form_error('last_name', '<div class="text-danger">', '</div>') ?>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-md-2">
-                    <label>Data de nascimento</label>
-                    <input type="date" class="form-control" placeholder="Data de nascimento" name="birth_date" value="<?php echo (isset($monthly) ? $monthly->birth_date : set_value('birth_date')) ?>">
-                    <?php echo form_error('birth_date', '<div class="text-danger">', '</div>') ?>
-                  </div>
-                  <div class="col-md-2">
-                    <label>CPF</label>
-                    <input type="text" class="form-control cpf" placeholder="CPF" name="cpf" value="<?php echo (isset($monthly) ? $monthly->cpf : set_value('cpf')) ?>">
-                    <?php echo form_error('cpf', '<div class="text-danger">', '</div>') ?>
-                  </div>
-                  <div class="col-md-2">
-                    <label>RG</label>
-                    <input type="text" class="form-control" placeholder="RG" name="rg" value="<?php echo (isset($monthly) ? $monthly->rg : set_value('rg')) ?>">
-                    <?php echo form_error('rg', '<div class="text-danger">', '</div>') ?>
-                  </div>
-                  <div class="col-md-6">
-                    <label>E-mail</label>
-                    <input type="email" class="form-control" placeholder="E-mail" name="email" value="<?php echo (isset($monthly) ? $monthly->email : set_value('email')) ?>">
-                    <?php echo form_error('email', '<div class="text-danger">', '</div>') ?>
+                  <div class="col-md-4 mb-3">
+                    <label for="">Melhor dia de vencimento</label>
+                    <input type="text" class="form-control expiration" name="monthy_expiration" value="<?php echo (isset($monthly_payment) ? $monthly_payment->monthly_expiration : set_value('monthly_expiration')) ?>" readonly="">
+                    <?php echo form_error('monthly_expiration', '<div class="text-danger">', '</div>') ?>
                   </div>
                 </div>
-                <div class="form-group row">
-                  <div class="col-md-2">
-                    <label>Telefone</label>
-                    <input type="text" class="form-control phone_with_ddd" placeholder="Telefone" name="telephone" value="<?php echo (isset($monthly) ? $monthly->telephone : set_value('telephone')) ?>">
-                    <?php echo form_error('telephone', '<div class="text-danger">', '</div>') ?>
+                <div class="row mb-3">
+                  <div class="col-md-8 mb-3">
+                    <label for="">Categoria</label>
+                    <select class="form-control pricing select2" name="pricing_id" <?php echo (isset($monthly_payment) && $monthly_payment->status == 1 ? 'disabled' : ''); ?>>
+                      <option value="">Escolha...</option>
+                      <?php foreach ($pricings as $pricing) : ?>
+                        <?php if (isset($monthly_payment)) : ?>
+                          <option value="<?php echo $pricing->id . ' ' . $pricing->value_month ?>" <?php echo ($pricing->id == $monthly_payment->pricing_id ? 'selected' : '') ?>><?php echo $pricing->category ?></option>
+                        <?php else : ?>
+                          <option value="<?php echo $pricing->id . ' ' . $pricing->value_month ?>"><?php echo $pricing->category ?></option>
+                        <?php endif; ?>
+                      <?php endforeach; ?>
+                    </select>
+                    <?php echo form_error('pricing_id', '<div class="text-danger">', '</div>') ?>
                   </div>
-                  <div class="col-md-2">
-                    <label>Celular</label>
-                    <input type="text" class="form-control sp_celphones" placeholder="Celular" name="cellphone" value="<?php echo (isset($monthly) ? $monthly->cellphone : set_value('cellphone')) ?>">
-                    <?php echo form_error('cellphone', '<div class="text-danger">', '</div>') ?>
-                  </div>
-                  <div class="col-md-2">
-                    <label>CEP</label>
-                    <input type="text" class="form-control cep" placeholder="CEP" name="zip_code" value="<?php echo (isset($monthly) ? $monthly->zip_code : set_value('zip_code')) ?>">
-                    <?php echo form_error('zip_code', '<div class="text-danger">', '</div>') ?>
-                  </div>
-                  <div class="col-md-4">
-                    <label>Endereço</label>
-                    <input type="text" class="form-control" placeholder="Endereço" name="address" value="<?php echo (isset($monthly) ? $monthly->address : set_value('address')) ?>">
-                    <?php echo form_error('address', '<div class="text-danger">', '</div>') ?>
-                  </div>
-                  <div class="col-md-2">
-                    <label>Número</label>
-                    <input type="number" class="form-control" placeholder="Número" name="number" value="<?php echo (isset($monthly) ? $monthly->number : set_value('number')) ?>">
-                    <?php echo form_error('number', '<div class="text-danger">', '</div>') ?>
+                  <div class="col-md-4 mb-3">
+                    <label for="">Valor Mensalidade</label>
+                    <input type="text" class="form-control monthly_value" name="monthly_value" value="<?php echo (isset($monthly_payment->monthly_value) ? $monthly_payment->monthly_value : '0,00') ?>" readonly="">
                   </div>
                 </div>
-
-                <div class="form-group row">
-                  <div class="col-md-2">
-                    <label>Bairro</label>
-                    <input type="text" class="form-control" placeholder="Bairro" name="district" value="<?php echo (isset($monthly) ? $monthly->district : set_value('district')) ?>">
-                    <?php echo form_error('district', '<div class="text-danger">', '</div>') ?>
+                <div class="row mb-3">
+                  <div class="col-md-4 mb-3">
+                    <label for="">Data vencimento</label>
+                    <input type="date" class="form-control" name="due_date" value="<?php echo (isset($monthly_payment) ? $monthly_payment->due_date : set_value('due_date')) ?>" <?php echo (isset($monthly_payment) ? 'disabled' : ''); ?>>
+                    <?php echo form_error('due_date', '<div class="text-danger">', '</div>') ?>
                   </div>
-                  <div class="col-md-2">
-                    <label>Cidade</label>
-                    <input type="text" class="form-control" placeholder="Cidade" name="city" value="<?php echo (isset($monthly) ? $monthly->city : set_value('city')) ?>">
-                    <?php echo form_error('city', '<div class="text-danger">', '</div>') ?>
-                  </div>
-                  <div class="col-md-2">
-                    <label>UF</label>
-                    <input type="text" class="form-control uf" placeholder="UF" name="state" value="<?php echo (isset($monthly) ? $monthly->state : set_value('state')) ?>">
-                    <?php echo form_error('state', '<div class="text-danger">', '</div>') ?>
-                  </div>
-                  <div class="col-md-6">
-                    <label>Complemento</label>
-                    <input type="text" class="form-control" placeholder="Complemento" name="complement" value="<?php echo (isset($monthly) ? $monthly->complement : set_value('complement')) ?>">
-                    <?php echo form_error('complement', '<div class="text-danger">', '</div>') ?>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <div class="col-md-2">
-                    <label>Ativo</label>
-                    <select name="active" class="form-control">
-                      <option <?php echo isset($monthly->active) && $monthly->active == 1 ? 'selected' : '' ?> value="1">Sim</option>
-                      <option <?php echo isset($monthly->active) && $monthly->active == 0 ? 'selected' : '' ?> value="0">Não</option>
+                  <div class="col-md-4 mb-3">
+                    <label for="">Situação</label>
+                    <select class="form-control" name="mon$monthly_payment_status" <?php echo (isset($monthly_payment) && $monthly_payment->status == 1 ? 'disabled' : ''); ?>>
+                      <?php if (isset($monthly_payment)) : ?>
+                        <option value="0" <?php echo ($monthly_payment->status == 0 ? 'selected' : '') ?>>Pendente</option>
+                        <option value="1" <?php echo ($monthly_payment->status == 1 ? 'selected' : '') ?>>Paga</option>
+                      <?php else : ?>
+                        <option value="0">Pendente</option>
+                        <option value="1">Paga</option>
+                      <?php endif; ?>
                     </select>
                   </div>
-                  <div class="col-md-2">
-                    <label>Dia vencimento mensalidade</label>
-                    <input type="number" class="form-control" placeholder="Dia vencimento mensalidade" name="expiration" value="<?php echo (isset($monthly) ? $monthly->expiration : set_value('expiration')) ?>">
-                    <?php echo form_error('expiration', '<div class="text-danger">', '</div>') ?>
-                  </div>
-                  <div class="col-md-8">
-                    <label>Observações</label>
-                    <textarea class="form-control" placeholder="Observações" name="obs"><?php echo (isset($monthly) ? $monthly->obs : set_value('obs')) ?></textarea>
-                    <?php echo form_error('obs', '<div class="text-danger">', '</div>') ?>
+                  <?php if (isset($monthly_payment) && $monthly_payment->status == 1) : ?>
+                    <div class="col-md-4 mb-3">
+                      <label for="">Data do pagamento</label>
+                      <input type="text" class="form-control" value="<?php echo formata_data_banco_com_hora($monthly_payment->payment_date); ?>" readonly="">
+                    </div>
+                  <?php endif; ?>
+                </div>
+
+                <?php if (isset($monthly_payment)) : ?>
+                  <input type="hidden" name="monthly_payment_id" value="<?php echo $monthly_payment->id ?>" />
+                <?php endif; ?>
+                <input type="hidden" class="monthly_id" name="monthly_hidden_id" value="" />
+                <input type="hidden" class="pricing_id" name="pricing_hidden_id" value="" />
+                <?php if (isset($monthly_payment) && $monthly_payment->status == 1) : ?>
+                  <button type="submit" class="btn btn-success mr-2" disabled="">Encerrada</button>
+                <?php else : ?>
+                  <a title="Cadastrar mensalidade" href="javascript:void(0)" class="btn btn btn-primary mr-2" data-toggle="modal" data-target="#monthly">Salvar</i></a>
+                <?php endif; ?>
+                <a href="<?php echo base_url($this->router->fetch_class()); ?>" class="btn btn-light">Voltar</a>
+                <div class="modal fade" id="monthly" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="demoModalLabel"><i class="ik ik-alert-octagon text-danger"></i>&nbsp;&nbsp;Confirmação de dados!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      </div>
+                      <div class="modal-body">
+                        <span class="text-dark font-weight-bold"><?php echo $modal_text; ?></span></br>
+                        <p></p>
+                        Clique em <span class="text-primary font-weight-bold">"Sim"</span> para salvar.
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Não</button>
+                        <button type="submit" class="btn btn-primary mr-2" value="">Sim</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-12">
-                  <input type="hidden" name="monthly_id" value="<?php echo isset($monthly) ? $monthly->id : 0 ?>">
-                </div>
-                <button type="submit" class="btn btn-primary mr-2">Enviar</button>
-                <a href="<?php echo base_url('monthly'); ?>" class="btn btn-secondary">Cancelar</a>
               </form>
             </div>
           </div>
