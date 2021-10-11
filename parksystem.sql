@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 10/10/2021 às 13:54
+-- Tempo de geração: 11/10/2021 às 17:22
 -- Versão do servidor: 10.1.32-MariaDB
 -- Versão do PHP: 7.0.30
 
@@ -90,8 +90,7 @@ CREATE TABLE `monthly` (
 --
 
 INSERT INTO `monthly` (`id`, `register_date`, `first_name`, `last_name`, `birth_date`, `cpf`, `rg`, `email`, `telephone`, `cellphone`, `zip_code`, `address`, `number`, `district`, `city`, `state`, `complement`, `active`, `expiration`, `obs`, `updated_on`) VALUES
-(1, '2020-03-13 22:00:02', 'Félix', 'Vicente dos Santos', '1997-06-13', '756.893.180-35', '43.372.472-9', 'felixvicent1306@gmail.com', '', '(41) 92023-2513', '58140-000', 'Rua Pedro Grangeiro', '664', 'Centro', 'Areial', 'PB', 'Proximo a sede da Cagepa', 1, 7, 'Teste', '2021-09-19 18:56:11'),
-(2, '2020-03-16 18:32:17', 'João', 'Antonio', '1984-03-13', '964.222.370-81', '33.036.268-9', 'joao@gmail.com', '', '', '80120-000', 'Rua do Trabalho', 'sem número', 'Centro', 'Curitiba', 'PR', '', 1, 10, '', '2021-10-07 11:29:31');
+(1, '2020-03-13 22:00:02', 'Félix', 'Vicente dos Santos', '1997-06-13', '756.893.180-35', '43.372.472-9', 'felixvicent1306@gmail.com', '', '(41) 92023-2513', '58140-000', 'Rua Pedro Grangeiro', '664', 'Centro', 'Areial', 'PB', 'Proximo a sede da Cagepa', 1, 7, 'Teste', '2021-09-19 18:56:11');
 
 -- --------------------------------------------------------
 
@@ -116,7 +115,39 @@ CREATE TABLE `monthly_payments` (
 --
 
 INSERT INTO `monthly_payments` (`id`, `monthly_id`, `pricing_id`, `monthly_value`, `monthly_expiration`, `due_date`, `payment_date`, `status`, `updated_on`) VALUES
-(1, 1, 4, '70,00', 7, '2021-09-05', '2021-10-10 13:54:27', 1, '2021-10-10 16:54:27');
+(1, 1, 4, '70,00', 7, '2021-09-05', '2021-10-10 13:54:27', 1, '2021-10-10 16:54:27'),
+(3, 1, 1, '130,00', 7, '2021-10-31', '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `park`
+--
+
+CREATE TABLE `park` (
+  `id` int(11) NOT NULL,
+  `pricing_id` int(11) NOT NULL,
+  `payment_method_id` int(11) DEFAULT NULL,
+  `value_hour` varchar(20) NOT NULL,
+  `vacancie_number` int(11) NOT NULL,
+  `vehicle_plate` varchar(8) NOT NULL,
+  `vehicle_brand` varchar(30) NOT NULL,
+  `vehicle_model` varchar(20) NOT NULL,
+  `entry_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `exit_date` datetime DEFAULT NULL,
+  `elapsed_time` varchar(20) DEFAULT NULL,
+  `value_owed` varchar(30) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL,
+  `updated_on` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Fazendo dump de dados para tabela `park`
+--
+
+INSERT INTO `park` (`id`, `pricing_id`, `payment_method_id`, `value_hour`, `vacancie_number`, `vehicle_plate`, `vehicle_brand`, `vehicle_model`, `entry_date`, `exit_date`, `elapsed_time`, `value_owed`, `status`, `updated_on`) VALUES
+(1, 4, 5, '7,00', 13, 'KKB8160', 'Honda', 'Titan KSe 2003', '2021-10-11 15:38:37', NULL, NULL, NULL, 0, NULL),
+(2, 4, 1, '7,00', 19, 'EP207', 'Honda', 'Titan 88', '2021-10-11 15:40:22', NULL, NULL, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -234,7 +265,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `updated_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2y$12$xwTCZ2nDPZXfq0p48T9lFOUVnxSCYDteFO3tGLAax21igCwYLXFDm', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, '2021-09-18 15:48:57', 1631980137, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(8, '::1', 'felps', '$2y$10$Ul2Ib4sxSFH6wVgCEQC2N.kMF84eFKXc0YpsiF41urONtD3SUpk7y', 'felixvicent1306@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1631471999, '2021-10-10 16:14:33', 1633882473, 1, 'Félix', 'Vicente', NULL, NULL);
+(8, '::1', 'felps', '$2y$10$Ul2Ib4sxSFH6wVgCEQC2N.kMF84eFKXc0YpsiF41urONtD3SUpk7y', 'felixvicent1306@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1631471999, '2021-10-11 18:40:58', 1633977658, 1, 'Félix', 'Vicente', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -282,6 +313,12 @@ ALTER TABLE `monthly`
 -- Índices de tabela `monthly_payments`
 --
 ALTER TABLE `monthly_payments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `park`
+--
+ALTER TABLE `park`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -341,13 +378,19 @@ ALTER TABLE `login_attempts`
 -- AUTO_INCREMENT de tabela `monthly`
 --
 ALTER TABLE `monthly`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `monthly_payments`
 --
 ALTER TABLE `monthly_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `park`
+--
+ALTER TABLE `park`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `payment_methods`

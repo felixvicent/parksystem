@@ -59,7 +59,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header d-block">
-              <a data-toggle="tooltip" data-placement="bottom" title="Cadastrar mensalista" href="<?php echo base_url('park_payments/form') ?>" class="btn bg-blue float-right text-white">Novo</a>
+              <a data-toggle="tooltip" data-placement="bottom" title="Cadastrar ticket" href="<?php echo base_url('park/form') ?>" class="btn bg-blue float-right text-white">Novo</a>
             </div>
             <div class="card-body">
               <table class="table data_table">
@@ -85,7 +85,7 @@
                       <td><?php echo ($park->status == 1 ? '<span class="badge badge-pill badge-success">Paga</span>' : '<span class="badge badge-pill badge-warning">Aberta</span>'); ?></td>
                       <td><i class="ik ik-eye">&nbsp;</i><a href="<?php echo base_url('payments/form/' . $park->payment_method_id) ?>"><?php echo $park->name; ?></td>
                       <td class="text-right">
-                        <a data-toggle="tooltip" data-placement="bottom" title="<?php echo $park->status == 1 ? 'Ver mensalidade' : 'Editar mensalidade' ?>" href=" <?php echo base_url('park/form/' . $park->park_id) ?>" class="btn btn-icon btn-primary"><?php echo $park->status == 1 ? '<i class="ik ik-eye">' : '<i class="ik ik-edit-2">' ?></i></a>
+                        <a data-toggle="tooltip" data-placement="bottom" title="<?php echo $park->status == 1 ? 'Ver ticket' : 'Encerrar ticket' ?>" href=" <?php echo base_url('park/form/' . $park->park_id) ?>" class="btn btn-icon btn-primary"><?php echo $park->status == 1 ? '<i class="ik ik-eye">' : '<i class="ik ik-check">' ?></i></a>
                         <button type="button" data-toggle="modal" data-target="#park-<?php echo $park->park_id; ?>" class="btn btn-icon btn-danger"><i class="ik ik-trash-2"></i></a>
                       </td>
                     </tr>

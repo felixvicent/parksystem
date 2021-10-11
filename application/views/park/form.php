@@ -38,85 +38,127 @@
             <div class="card-body">
               <form class="forms-sample" name="form_core" method="post">
                 <div class="row mb-3">
-                  <div class="col-md-8 mb-3">
-                    <label for="">Mensalista</label>
-                    <select class="form-control monthly select2" name="monthly_id" <?php echo (isset($monthly_payment) ? 'disabled' : ''); ?>>
-                      <option value="">Escolha...</option>
-                      <?php foreach ($monthly as $month) : ?>
-                        <?php if (isset($monthly_payment)) : ?>
-                          <option value="<?php echo $month->id . ' ' . $month->expiration ?>" <?php echo ($month->id == $monthly_payment->monthly_id ? 'selected' : '') ?>><?php echo $month->first_name . '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;CPF&nbsp&nbsp;' . $month->cpf; ?></option>
-                        <?php else : ?>
-                          <option value="<?php echo $month->id . ' ' . $month->expiration ?>"><?php echo $month->first_name . '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;CPF&nbsp&nbsp;' . $month->cpf; ?></option>
-                        <?php endif; ?>
-                      <?php endforeach; ?>
-                    </select>
-                    <?php echo form_error('monthly_id', '<div class="text-danger">', '</div>') ?>
-                  </div>
                   <div class="col-md-4 mb-3">
-                    <label for="">Melhor dia de vencimento</label>
-                    <input type="text" class="form-control expiration" name="monthly_expiration" value="<?php echo (isset($monthly_payment) ? $monthly_payment->monthly_expiration : set_value('monthly_expiration')) ?>" readonly="">
-                    <?php echo form_error('monthly_expiration', '<div class="text-danger">', '</div>') ?>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-md-8 mb-3">
                     <label for="">Categoria</label>
-                    <select class="form-control pricing select2" name="pricing_id" <?php echo (isset($monthly_payment) && $monthly_payment->status == 1 ? 'disabled' : ''); ?>>
+                    <select class="form-control pricing" name="id" <?php echo (isset($park) ? 'disabled' : '') ?>>
                       <option value="">Escolha...</option>
                       <?php foreach ($pricings as $pricing) : ?>
-                        <?php if (isset($monthly_payment)) : ?>
-                          <option value="<?php echo $pricing->id . ' ' . $pricing->value_month ?>" <?php echo ($pricing->id == $monthly_payment->pricing_id ? 'selected' : '') ?>><?php echo $pricing->category ?></option>
+                        <?php if (isset($park)) : ?>
+                          <option value="<?php echo $pricing->id ?>" <?php echo ($pricing->id == $park->pricing_id ? 'selected' : '') ?>><?php echo $pricing->category ?></option>
                         <?php else : ?>
-                          <option value="<?php echo $pricing->id . ' ' . $pricing->value_month ?>"><?php echo $pricing->category ?></option>
+                          <option value="<?php echo $pricing->id ?><?php echo $pricing->value_hour ?>"><?php echo $pricing->category ?></option>
                         <?php endif; ?>
                       <?php endforeach; ?>
                     </select>
-                    <?php echo form_error('pricing_id', '<div class="text-danger">', '</div>') ?>
+                    <?php echo form_error('id', '<div class="text-danger">', '</div>') ?>
                   </div>
                   <div class="col-md-4 mb-3">
-                    <label for="">Valor Mensalidade</label>
-                    <input type="text" class="form-control monthly_value" name="monthly_value" value="<?php echo (isset($monthly_payment->monthly_value) ? $monthly_payment->monthly_value : '0,00') ?>" readonly="">
+                    <label for="">Valor hora</label>
+                    <input type="text" class="form-control value_hour" name="value_hour" value="<?php echo (isset($park->value_hour) ? $park->value_hour : '0,00') ?>" readonly="">
                   </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="">Número vaga</label>
+                    <input type="number" class="form-control" name="vacancie_number" value="<?php echo (isset($park) ? $park->vacancie_number : set_value('vacancie_number')) ?>" <?php echo (isset($park) ? 'readonly' : '') ?>>
+                    <?php echo form_error('vacancie_number', '<div class="text-danger">', '</div>') ?>
+                  </div>
+
                 </div>
                 <div class="row mb-3">
                   <div class="col-md-4 mb-3">
-                    <label for="">Data vencimento</label>
-                    <input type="date" class="form-control" name="due_date" value="<?php echo (isset($monthly_payment) ? $monthly_payment->due_date : set_value('due_date')) ?>" <?php echo (isset($monthly_payment) ? 'disabled' : ''); ?>>
-                    <?php echo form_error('due_date', '<div class="text-danger">', '</div>') ?>
+                    <label for="">Placa veículo</label>
+                    <input type="text" class="form-control vehicle_plate" name="vehicle_plate" value="<?php echo (isset($park) ? $park->vehicle_plate : set_value('vehicle_plate')) ?>" <?php echo (isset($park) ? 'readonly' : '') ?>>
+                    <?php echo form_error('vehicle_plate', '<div class="text-danger">', '</div>') ?>
                   </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="">Situação</label>
-                    <select class="form-control" name="monthly_payment_status" <?php echo (isset($monthly_payment) && $monthly_payment->status == 1 ? 'disabled' : ''); ?>>
-                      <?php if (isset($monthly_payment)) : ?>
-                        <option value="0" <?php echo ($monthly_payment->status == 0 ? 'selected' : '') ?>>Pendente</option>
-                        <option value="1" <?php echo ($monthly_payment->status == 1 ? 'selected' : '') ?>>Paga</option>
-                      <?php else : ?>
-                        <option value="0">Pendente</option>
-                        <option value="1">Paga</option>
-                      <?php endif; ?>
-                    </select>
-                  </div>
-                  <?php if (isset($monthly_payment) && $monthly_payment->status == 1) : ?>
-                    <div class="col-md-4 mb-3">
-                      <label for="">Data do pagamento</label>
-                      <input type="text" class="form-control" value="<?php echo formata_data_banco_com_hora($monthly_payment->payment_date); ?>" readonly="">
-                    </div>
-                  <?php endif; ?>
-                </div>
 
-                <?php if (isset($monthly_payment)) : ?>
-                  <input type="hidden" name="monthly_payment_id" value="<?php echo $monthly_payment->id ?>" />
+                  <div class="col-md-4 mb-3">
+                    <label for="">Marca veículo</label>
+                    <input type="text" class="form-control" name="vehicle_brand" value="<?php echo (isset($park) ? $park->vehicle_brand : set_value('vehicle_brand')) ?>" <?php echo (isset($park) ? 'readonly' : '') ?>>
+                    <?php echo form_error('vehicle_brand', '<div class="text-danger">', '</div>') ?>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label for="">Modelo veículo</label>
+                    <input type="text" class="form-control" name="vehicle_model" value="<?php echo (isset($park) ? $park->vehicle_model : set_value('vehicle_model')) ?>" <?php echo (isset($park) ? 'readonly' : '') ?>>
+                    <?php echo form_error('vehicle_model', '<div class="text-danger">', '</div>') ?>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col mb-3">
+                    <label for="">Data entrada</label>
+                    <input type="text" class="form-control" name="entry_date" value="<?php echo (isset($park) ? formata_data_banco_com_hora($park->entry_date) : formata_data_banco_com_hora(date('y-m-d H:i:s'))) ?>" readonly="">
+                  </div>
+
+                  <div class="col mb-3">
+                    <label for="">Data saída</label>
+                    <?php if (isset($park) && $park->status == 1) : ?>
+                      <input type="text" class="form-control" name="exit_date" value="<?php echo (isset($park) ? formata_data_banco_com_hora($park->exit_date) : formata_data_banco_com_hora(date('y-m-d H:i:s'))) ?>" readonly="">
+                    <?php else : ?>
+                      <input type="text" class="form-control" name="exit_date" value="<?php echo formata_data_banco_com_hora(date('y-m-d H:i:s')) . '&nbsp;|&nbsp;Em aberto' ?>" readonly="">
+                    <?php endif; ?>
+
+                    <?php echo form_error('entry_date', '<div class="text-danger">', '</div>') ?>
+                  </div>
+
+                  <div class="col mb-3">
+                    <label for="">Tempo decorrido (horas e minutos)</label>
+
+                    <?php
+                    $entry_date = new DateTime(isset($park) ? $park->entry_date : date('Y-m-d H:i:s'));
+                    $exit_date = new DateTime(date('Y-m-d H:i:s'));
+
+                    $diff = $exit_date->diff($entry_date);
+
+                    $hours = $diff->h;
+                    $hours += ($diff->days * 24);
+
+                    $elapsed_time = $hours . '.' . $diff->i; //Concatena as horas com os minutos
+
+                    if (isset($park)) {
+                      $value_owed = intval($park->value_hour) * $elapsed_time;
+                    } else {
+                      $value_owed = '0,00';
+                    }
+                    if (str_replace('.', '', $elapsed_time) <= '015') {
+
+                      $value_owed = '0,00';
+                    }
+                    ?>
+                    <input type="text" class="form-control" name="elapsed_time" value="<?php echo (isset($park) && $park->status == 1 ? ($park->elapsed_time) : $elapsed_time) ?>" readonly="">
+                  </div>
+                </div>
+                <?php if (isset($park)) : ?>
+                  <div class="row mb-3">
+                    <div class="col-md-6 mb-3">
+                      <label for="">Valor devido</label>
+                      <input type="text" class="form-control" name="value_owed" value="<?php echo (isset($park) && $park->status == 1 ? $park->value_owed : $value_owed) ?>" readonly="">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="">Forma de pagamento</label>
+                      <select class="form-control select2" name="payment_method_id" <?php echo (isset($park) && $park->status == 1 ? 'disabled' : '') ?>>
+                        <option value="">Escolha...</option>
+                        <?php foreach ($payment_methods as $payment_method) : ?>
+                          <?php if ($park) : ?>
+                            <option value="<?php echo $payment_method->id; ?>" <?php echo ($payment_method->id == $park->id ? 'selected' : '') ?> "><?php echo $payment_method->name; ?></option>
+                          <?php endif; ?>
+                        <?php endforeach; ?>
+                      </select>
+                      <?php echo form_error('payment_method_id', '<div class="text-danger">', '</div>'); ?>
+                    </div>
+                  </div>
                 <?php endif; ?>
-                <input type="hidden" class="monthly_id" name="monthly_hidden_id" value="" />
-                <input type="hidden" class="pricing_id" name="pricing_hidden_id" value="" />
-                <?php if (isset($monthly_payment) && $monthly_payment->status == 1) : ?>
-                  <button type="submit" class="btn btn-success mr-2" disabled="">Encerrada</button>
-                <?php else : ?>
-                  <a title="Cadastrar mensalidade" href="javascript:void(0)" class="btn btn btn-primary mr-2" data-toggle="modal" data-target="#monthly">Salvar</i></a>
-                <?php endif; ?>
-                <a href="<?php echo base_url($this->router->fetch_class()); ?>" class="btn btn-light">Voltar</a>
-                <div class="modal fade" id="monthly" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="">
+                  <?php if (isset($park)) : ?>
+                    <input type="hidden" name="id" value="<?php echo $park->id ?>" />
+                  <?php endif; ?>
+                  <?php if (isset($park) && $park->status == 1) : ?>
+                    <button type="submit" class="btn btn-success mr-2 disabled" value="" disabled>Encerrada</button>
+                  <?php else : ?>
+                    <a title="Cadastrar ordem de estacionamento" href="javascript:void(0)" class="btn btn btn-primary mr-2" data-toggle="modal" data-target="#cadastrar">Encerrar</i></a>
+                  <?php endif; ?>
+                  <a href="<?php echo base_url($this->router->fetch_class()); ?>" class="btn btn-light">Voltar</a>
+                </div>
+                <div class="modal fade" id="cadastrar" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title" id="demoModalLabel"><i class="ik ik-alert-octagon text-danger"></i>&nbsp;&nbsp;Confirmação de dados!</h5>
@@ -125,7 +167,7 @@
                       <div class="modal-body">
                         <span class="text-dark font-weight-bold"><?php echo $modal_text; ?></span></br>
                         <p></p>
-                        Clique em <span class="text-primary font-weight-bold">"Sim"</span> para salvar.
+                        Clique em <span class="text-primary font-weight-bold">"Sim"</span> para prosseguir.
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-success" data-dismiss="modal">Não</button>
