@@ -18,7 +18,7 @@ class Monthly_payments extends CI_Controller
   {
     $data = array(
       "title" => "Mensalidades",
-      "monthly_payments" => $this->monthly_payments->get_all('monthly_payments'),
+      "monthly_payments" => $this->monthly_payments->get_all(),
       "styles" => array(
         "plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
       ),

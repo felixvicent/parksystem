@@ -17,6 +17,9 @@
         <div class="nav-item <?php echo ($this->router->fetch_class() == 'home' ? 'active' : '') ?>">
           <a href="<?php echo base_url('home') ?>"><i class="ik ik-home"></i><span>Home</span></a>
         </div>
+        <div class="nav-item <?php echo ($this->router->fetch_class() == 'park' ? 'active' : '') ?>">
+          <a href="<?php echo base_url('park') ?>"><i class="fas fa-parking"></i></i><span>Estacionar</span></a>
+        </div>
         <div class="nav-item <?php echo ($this->router->fetch_class() == 'monthly' ? 'active' : '') ?>">
           <a href="<?php echo base_url('monthly') ?>"><i class="ik ik-clipboard"></i><span>Mensalistas</span></a>
         </div>
