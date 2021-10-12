@@ -40,7 +40,7 @@
                 <div class="row mb-3">
                   <div class="col-md-4 mb-3">
                     <label for="">Categoria</label>
-                    <select class="form-control pricing" name="id" <?php echo (isset($park) ? 'disabled' : '') ?>>
+                    <select class="form-control pricing" name="pricing_id" <?php echo (isset($park) ? 'disabled' : '') ?>>
                       <option value="">Escolha...</option>
                       <?php foreach ($pricings as $pricing) : ?>
                         <?php if (isset($park)) : ?>
@@ -50,7 +50,7 @@
                         <?php endif; ?>
                       <?php endforeach; ?>
                     </select>
-                    <?php echo form_error('id', '<div class="text-danger">', '</div>') ?>
+                    <?php echo form_error('pricing_id', '<div class="text-danger">', '</div>') ?>
                   </div>
                   <div class="col-md-4 mb-3">
                     <label for="">Valor hora</label>
@@ -61,7 +61,6 @@
                     <input type="number" class="form-control" name="vacancie_number" value="<?php echo (isset($park) ? $park->vacancie_number : set_value('vacancie_number')) ?>" <?php echo (isset($park) ? 'readonly' : '') ?>>
                     <?php echo form_error('vacancie_number', '<div class="text-danger">', '</div>') ?>
                   </div>
-
                 </div>
                 <div class="row mb-3">
                   <div class="col-md-4 mb-3">
@@ -138,7 +137,7 @@
                         <option value="">Escolha...</option>
                         <?php foreach ($payment_methods as $payment_method) : ?>
                           <?php if ($park) : ?>
-                            <option value="<?php echo $payment_method->id; ?>" <?php echo ($payment_method->id == $park->id ? 'selected' : '') ?> "><?php echo $payment_method->name; ?></option>
+                            <option value="<?php echo $payment_method->id; ?>" <?php echo ($payment_method->id == $park->payment_method_id ? 'selected' : "") ?>><?php echo $payment_method->name; ?></option>
                           <?php endif; ?>
                         <?php endforeach; ?>
                       </select>

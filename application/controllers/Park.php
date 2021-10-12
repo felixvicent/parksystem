@@ -37,7 +37,44 @@ class Park extends CI_Controller
   public function form($id = null)
   {
     if (!$id) {
-      exit('CADASTRANDO');
+      $this->form_validation->set_rules('pricing_id', 'Categoria', 'required');
+      $this->form_validation->set_rules('vacancie_number', 'Número vaga', 'required|integer|greater_than[0]|callback_check_free_vacancie|callback_check_range_category_vacancie');
+      $this->form_validation->set_rules('vehicle_plate', 'Placa veículo', 'required|min_length[5]|callback_check_plate_status_open');
+      $this->form_validation->set_rules('vehicle_brand', 'Marca veículo', 'required|min_length[2]|max_length[30]');
+      $this->form_validation->set_rules('vehicle_model', 'Modelo veículo', 'required|min_length[2]|max_length[20]');
+
+      if ($this->form_validation->run()) {
+        $data = elements(array(
+          'value_hour',
+          'vacancie_number',
+          'vehicle_plate',
+          'vehicle_brand',
+          'vehicle_model',
+        ), $this->input->post());
+
+        $data['pricing_id'] = intval(substr($this->input->post('pricing_id'), 0, 1));
+        $data['status'] = 0;
+
+        $data = html_escape($data);
+
+        $this->general->insert('park', $data);
+        redirect('park');
+      } else {
+        $data = array(
+          "title" => "Cadastrar ticket",
+          "modal_text" => "Tem certeza que deseja salvar esse ticket? Não será possivel altera-lo",
+          "pricings" => $this->general->get_all('pricings', array('active' => 1)),
+          "scripts" => array(
+            "plugins/mask/jquery.mask.min.js",
+            "plugins/mask/custom.js",
+            "js/park/custom.js"
+          ),
+        );
+
+        $this->load->view('layout/header', $data);
+        $this->load->view('park/form', $data);
+        $this->load->view('layout/footer');
+      }
     } else {
       if (!$this->general->get_by_id('park', array('id' => $id))) {
         $this->session->set_flashdata('error', 'Ticket não encontrado');
@@ -87,6 +124,49 @@ class Park extends CI_Controller
           $this->load->view('layout/footer');
         }
       }
+    }
+  }
+
+  public function check_free_vacancie($vacancie_number)
+  {
+    $pricing_id = intval(substr($this->input->post('pricing_id'), 0, 1));
+
+    if ($this->general->get_by_id('park', array('vacancie_number' => $vacancie_number, 'status' => 0, 'pricing_id' => $pricing_id))) {
+      $this->form_validation->set_message('check_free_vacancie', 'Essa vaga já está ocupada para essa categoria');
+      return FALSE;
+    } else {
+      return TRUE;
+    }
+  }
+
+  public function check_range_category_vacancie($vacancie_number)
+  {
+    $pricing_id = intval(substr($this->input->post('pricing_id'), 0, 1));
+
+    if ($pricing_id) {
+      $pricing = $this->general->get_by_id('pricings', array('id' => $pricing_id));
+
+      if ($pricing->number_vacancies < $vacancie_number) {
+        $this->form_validation->set_message('check_range_category_vacancie', 'A vaga deve estar entre 1 e ' . $pricing->number_vacancies);
+        return FALSE;
+      } else {
+        return TRUE;
+      }
+    } else {
+      $this->form_validation->set_message('check_range_category_vacancie', 'Escolha uma categoria');
+      return FALSE;
+    }
+  }
+
+  public function check_plate_status_open($vehicle_plate)
+  {
+    $vehicle_plate = strtoupper($vehicle_plate);
+
+    if ($this->general->get_by_id('park', array('vehicle_plate' => $vehicle_plate, 'status' => 0))) {
+      $this->form_validation->set_message('check_plate_status_open', 'Existe uma ordem aberta para essa placa');
+      return FALSE;
+    } else {
+      return TRUE;
     }
   }
 }

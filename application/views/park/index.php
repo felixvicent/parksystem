@@ -69,7 +69,6 @@
                     <th>Categoria</th>
                     <th>Valor hora</th>
                     <th>Placa</th>
-                    <th>Status</th>
                     <th>Forma de pagamento</th>
                     <th>Status</th>
                     <th class="nosort text-right pr-25">Ações</th>
@@ -82,8 +81,8 @@
                       <td><i class="ik ik-eye">&nbsp;</i><a href="<?php echo base_url('pricings/form/' . $park->pricing_id) ?>"><?php echo $park->category; ?></a></td>
                       <td><?php echo $park->value_hour; ?></td>
                       <td><?php echo $park->vehicle_plate; ?></td>
+                      <td><i class="ik ik-eye">&nbsp;</i><a href="<?php echo base_url('payments/form/' . $park->payment_method_id) ?>"><?php echo $park->status == 1 ? $park->name : 'Em aberto'; ?></td>
                       <td><?php echo ($park->status == 1 ? '<span class="badge badge-pill badge-success">Paga</span>' : '<span class="badge badge-pill badge-warning">Aberta</span>'); ?></td>
-                      <td><i class="ik ik-eye">&nbsp;</i><a href="<?php echo base_url('payments/form/' . $park->payment_method_id) ?>"><?php echo $park->name; ?></td>
                       <td class="text-right">
                         <a data-toggle="tooltip" data-placement="bottom" title="<?php echo $park->status == 1 ? 'Ver ticket' : 'Encerrar ticket' ?>" href=" <?php echo base_url('park/form/' . $park->park_id) ?>" class="btn btn-icon btn-primary"><?php echo $park->status == 1 ? '<i class="ik ik-eye">' : '<i class="ik ik-check">' ?></i></a>
                         <button type="button" data-toggle="modal" data-target="#park-<?php echo $park->park_id; ?>" class="btn btn-icon btn-danger"><i class="ik ik-trash-2"></i></a>
