@@ -57,8 +57,11 @@ class Park extends CI_Controller
 
         $data = html_escape($data);
 
-        $this->general->insert('park', $data);
-        redirect('park');
+        $this->general->insert('park', $data, true);
+
+        $park_id = $this->session->userdata('last_id');
+
+        redirect('park/actions/' . $park_id);
       } else {
         $data = array(
           "title" => "Cadastrar ticket",
@@ -124,6 +127,23 @@ class Park extends CI_Controller
           $this->load->view('layout/footer');
         }
       }
+    }
+  }
+
+  public function actions($id)
+  {
+    if (!$this->general->get_by_id('park', array('id' => $id))) {
+      $this->session->set_flashdata('error', 'Ticket não encontrado');
+      redirect('park');
+    } else {
+      $data = array(
+        "title" => "Ações do ticket",
+        "park" => $this->general->get_by_id('park', array('id' => $id)),
+      );
+
+      $this->load->view('layout/header', $data);
+      $this->load->view('park/actions', $data);
+      $this->load->view('layout/footer');
     }
   }
 

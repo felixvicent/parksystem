@@ -8,7 +8,7 @@
         <div class="row align-items-end">
           <div class="col-lg-8">
             <div class="page-header-title">
-              <i class="ik ik-clipboard bg-blue"></i>
+              <i class="fas fa-parking bg-blue"></i>
               <div class="d-inline">
                 <h5><?php echo $title ?></h5>
               </div>
@@ -21,7 +21,7 @@
                   <a data-toggle="tooltip" data-placement="bottom" title="Home" href="<?php echo base_url('/') ?>"><i class="ik ik-home"></i></a>
                 </li>
                 <li class="breadcrumb-item">
-                  <a data-toggle="tooltip" data-placement="bottom" title="monthly cadastrados" href="<?php echo base_url('monthly_payment') ?>">Mensalistas</a>
+                  <a data-toggle="tooltip" data-placement="bottom" title="tickets cadastrados" href="<?php echo base_url('monthly_payment') ?>">Tickets</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page"><?php echo $title ?></li>
               </ol>
@@ -33,7 +33,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <?php echo isset($monthly_payment) ? '<i class="ik ik-calendar ik-2x"></i>&nbsp; Última atualização: ' . formata_data_banco_com_hora($monthly_payment->updated_on) : '' ?>
+              <?php echo isset($park) ? '<i class="ik ik-calendar ik-2x"></i>&nbsp; Última atualização: ' . formata_data_banco_com_hora($park->updated_on) : '' ?>
             </div>
             <div class="card-body">
               <form class="forms-sample" name="form_core" method="post">
