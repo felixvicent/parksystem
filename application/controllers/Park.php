@@ -57,11 +57,7 @@ class Park extends CI_Controller
 
         $data = html_escape($data);
 
-        $this->general->insert('park', $data, true);
-
-        $park_id = $this->session->userdata('last_id');
-
-        redirect('park/actions/' . $park_id);
+        $this->general->insert('park', $data);
       } else {
         $data = array(
           "title" => "Cadastrar ticket",
@@ -83,7 +79,6 @@ class Park extends CI_Controller
         $this->session->set_flashdata('error', 'Ticket não encontrado');
         redirect('park');
       } else {
-
         $elapsed_time = str_replace('.', '', $this->input->post('elapsed_time'));
 
         if ($elapsed_time > '015') {
@@ -106,8 +101,9 @@ class Park extends CI_Controller
 
           $data = html_escape($data);
 
-          $this->general->update('park', array('id' => $id), $data);
-          redirect('park');
+          $this->general->update('park', array('id' => $id), $data, true);
+
+          redirect('park/actions/' . $id);
         } else {
           $data = array(
             "title" => "Encerramento de ticket",
@@ -144,6 +140,73 @@ class Park extends CI_Controller
       $this->load->view('layout/header', $data);
       $this->load->view('park/actions', $data);
       $this->load->view('layout/footer');
+    }
+  }
+
+  public function pdf($id = null)
+  {
+    if (!$id || !$this->general->get_by_id('park', array('id' => $id))) {
+      $this->session->set_flashdata('error', 'Ticket não encontrado');
+      redirect('park');
+    } else {
+      $this->load->library('pdf');
+      $this->load->model('park_model', 'park');
+
+      $system = $this->general->get_by_id('system', array('id' => 1));
+
+      $ticket = $this->park->get_by_id($id);
+
+      $file_name = 'Ticket - Placa_' . $ticket->vehicle_plate;
+
+      $html = '<html style="font-size:11px">';
+      $html .= '<head>';
+      $html .= '<title>' . $system->name_social . '</title>';
+      $html .= '</head>';
+      $html .= '<body>';
+      $html .= '<h5 style="font-size:10px" align="center">';
+      $html .= $system->name_fantasy . '<br/>';
+      $html .= 'CNPJ: ' . $system->cnpj . '<br/>';
+      $html .= $system->address . ' - ' . $system->number . '<br/>';
+      $html .= $system->zip_code . '<br/>';
+      $html .= $system->city . ' - ' . $system->state . '<br/>';
+      $html .= $system->telephone . ' - ' . $system->cellphone . '<br/>';
+      $html .= $system->email . '<br/>';
+      $html .= '</h5>';
+      $html .= '<hr>';
+
+      $output = '';
+
+      if ($ticket->status == 1) {
+        $output .= '<strong>Data saida: </strong>' . formata_data_banco_com_hora($ticket->exit_date) . '<br/>';
+        $output .= '<strong>Tempo decorrido (HH:MM): </strong>' . $ticket->elapsed_time . '<br/>';
+        $output .= '<strong>Valor pago: </strong>R$ ' . $ticket->value_owed . '<br/>';
+        $output .= '<strong>Forma de pagamento: </strong>' . $ticket->name . '<br/>';
+      }
+
+      $html .= '<p align="right">Ticket Nº ' . $ticket->id . '</p><br/>';
+      $html .= '<p><strong>Placa veiculo: </strong>' . $ticket->vehicle_plate . '<br/>';
+      $html .= '<strong>Marca veiculo: </strong>' . $ticket->vehicle_brand . '<br/>';
+      $html .= '<strong>Modelo veiculo: </strong>' . $ticket->vehicle_model . '<br/>';
+      $html .= '<strong>Categoria veiculo: </strong>' . $ticket->category . '<br/>';
+      $html .= '<strong>Número da vaga: </strong>' . $ticket->vacancie_number . '<br/>';
+      $html .= '<strong>Data de entrada: </strong>' . formata_data_banco_com_hora($ticket->entry_date) . '<br/>' . $output . '<br/>';
+
+      $html .= '<hr>';
+
+      $html .= '<h5 style="font-size:10px" align="center">';
+      $html .= $system->name_fantasy . '<br/>';
+      $html .= $system->txt_ticket . '<br/>';
+      $html .= date('d/m/Y H:i:s') . '<br/>';
+      $html .= '</h5>';
+
+
+      // echo '<pre>';
+      // print_r($html);
+      // exit;
+
+      $this->pdf->createPDF($html, $file_name, false);
+      $html .= '</body>';
+      $html .= '</html>';
     }
   }
 
